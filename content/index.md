@@ -1,11 +1,23 @@
 ---
 title: 观照
+description: 用 AI 与系统思维面对真实世界，用佛法与长期主义校正判断
 ---
+
+<div class="hero">
 
 # 观照
 
-这是 Dhammavipassi 的数字花园。
+<p class="hero-subtitle">Dhammadassī · DhammaAI</p>
 
-## 关于
+<p class="hero-tagline">
+用 AI 与系统思维面对真实世界<br/>
+用佛法与长期主义校正判断
+</p>
 
-这里是一个以 Obsidian 为后台、Quartz 为前端的数字花园。内容从个人知识库中精选发布。
+</div>
+
+<div class="entry-cards">
+
+[佛法修学](/佛法修学) | [AI 实践](/AI实践) | [关于](/关于)
+
+</div>

@@ -20,30 +20,30 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      header: Noto Serif SC
+      body: Noto Sans SC
+      code: JetBrains Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
+        light: "#faf8f5"
+        lightgray: "#e8e4df"
         gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
+        darkgray: "#4a4a4a"
         dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        secondary: "#3a5a5a"
+        tertiary: "#c4a35a"
+        highlight: rgba(58, 90, 90, 0.08)
+        textHighlight: "#c4a35a44"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#1a1f1f"
+        lightgray: "#2a3030"
+        gray: "#5a6060"
+        darkgray: "#c8c4bf"
+        dark: "#e8e4df"
+        secondary: "#6a9a9a"
+        tertiary: "#b8945a"
+        highlight: rgba(106, 154, 154, 0.12)
+        textHighlight: "#b8945a44"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true
@@ -204,7 +204,14 @@ plugins:
       links:
         GitHub: https://github.com/dhammavipassi/dhamma-garden
   - source: github:quartz-community/recent-notes
-    enabled: false
+    enabled: true
+    options:
+      title: "最近笔记"
+      limit: 5
+      showTags: true
+    layout:
+      position: afterBody
+      priority: 10
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
