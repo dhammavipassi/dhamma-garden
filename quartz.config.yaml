@@ -130,7 +130,7 @@ plugins:
   - source: github:quartz-community/tag-page
     enabled: true
   - source: github:quartz-community/explorer
-    enabled: true
+    enabled: false
     layout:
       position: left
       priority: 50
@@ -199,12 +199,11 @@ plugins:
       position: afterBody
       priority: 10
   - source: github:quartz-community/footer
-    enabled: true
+    enabled: false
     options:
-      links:
-        GitHub: https://github.com/dhammavipassi/dhamma-garden
+      links: {}
   - source: github:quartz-community/recent-notes
-    enabled: true
+    enabled: false
     options:
       title: "最近笔记"
       limit: 5
