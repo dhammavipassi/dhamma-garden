@@ -196,6 +196,18 @@ pre {
   color: var(--温暖金);
 }
 
+// --- 平板（iPad 竖屏 768px）---
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+}
+
 // --- 移动端 ---
 
 @media #{$mobile} {
