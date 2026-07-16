@@ -33,6 +33,18 @@ PRESERVE_FILES = {"index.md"}  # Don't touch these in content/
 # 站点结构页：不在 vault 里，直接在 repo 里维护，同步时不清理
 PRESERVE_DIRS = {"佛法修学", "AI实践", "关于"}
 
+# 发布时从 frontmatter 中清除的内部字段（读者不需要看到的管理元数据）
+STRIP_FRONTMATTER_FIELDS = {
+    'publish',        # 发布标记，内部用
+    'type',           # Obsidian 文档类型
+    'status',         # 文档状态
+    'updated',        # 更新日期，Quartz 会从 git/filesystem 获取
+    'created',        # 创建日期
+    'scope',          # AI 准入范围
+    'project',        # 项目关联
+    'backlinks',      # 内部链接
+}
+
 # ── Patterns ───────────────────────────────────────────────────
 PUBLISH_PATTERN = re.compile(r'^publish:\s*true\s*$', re.MULTILINE)
 IMAGE_EXTS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp', '.tiff', '.tif'}
@@ -77,6 +89,46 @@ def parse_frontmatter(filepath: Path) -> tuple[bool, str]:
 
     frontmatter = content[3:end]
     return bool(PUBLISH_PATTERN.search(frontmatter)), content
+
+
+def strip_internal_frontmatter(content: str) -> str:
+    """Remove internal management fields from frontmatter before publishing."""
+    if not content.startswith('---'):
+        return content
+
+    end = content.find('\n---', 3)
+    if end == -1:
+        return content
+
+    frontmatter = content[3:end]
+    body = content[end:]
+
+    # Filter out internal fields from frontmatter
+    lines = frontmatter.split('\n')
+    stripped_lines = []
+    skip_nested = False
+    for line in lines:
+        # Check if this is a top-level key
+        if re.match(r'^[\w-]+:', line):
+            key = line.split(':')[0].strip()
+            if key in STRIP_FRONTMATTER_FIELDS:
+                skip_nested = True
+                continue
+            else:
+                skip_nested = False
+        elif skip_nested and (line.startswith('  ') or line.startswith('\t') or line.strip() == ''):
+            # Skip nested values under a stripped key
+            continue
+        else:
+            skip_nested = False
+        stripped_lines.append(line)
+
+    # Clean up empty lines at the end
+    while stripped_lines and stripped_lines[-1].strip() == '':
+        stripped_lines.pop()
+
+    new_frontmatter = '\n'.join(stripped_lines)
+    return f'---{new_frontmatter}{body}'
 
 
 def find_publishable_notes() -> list[tuple[Path, str]]:
@@ -223,11 +275,13 @@ def sync(dry_run: bool = False, no_push: bool = False):
             continue
         processed.add(str_path)
 
-        # Copy the note
+        # Copy the note (with frontmatter cleaning)
         src = VAULT_ROOT / rel_path
         dest = CONTENT_DIR / rel_path
         dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dest)
+        cleaned_content = strip_internal_frontmatter(content)
+        with open(dest, 'w', encoding='utf-8') as f:
+            f.write(cleaned_content)
         copied.add(str_path)
         print(f"  ✓ {rel_path}")
 
