@@ -1,11 +1,11 @@
 ---
-title: 观照
+title: DhammaAI
 description: 用 AI 与系统思维面对真实世界，用佛法与长期主义校正判断
 ---
 
 <div class="hero">
 
-# 观照
+# DhammaAI
 
 <p class="hero-subtitle">Dhammadassī · DhammaAI</p>
 
