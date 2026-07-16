@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DhammaAI · 首页设计稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0e8;
+  --bg-card: #faf6ef;
+  --bg-deep: #ede5d6;
+  --ink: #2b2520;
+  --ink-soft: #5a5048;
+  --ink-light: #8a7e72;
+  --gold: #b8945a;
+  --gold-soft: #d4b888;
+  --moss: #5a7a5a;
+  --moss-soft: #8aaa8a;
+  --indigo: #3a5a5a;
+  --rust: #a06840;
+  --border: #e0d5c5;
+  --shadow: 0 2px 12px rgba(139, 115, 85, 0.08);
+  --shadow-hover: 0 6px 24px rgba(139, 115, 85, 0.15);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --serif: 'Noto Serif SC', 'Songti SC', serif;
+  --sans: 'Noto Sans SC', 'PingFang SC', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1714;
+    --bg-card: #241f1a;
+    --bg-deep: #15110d;
+    --ink: #e8e0d4;
+    --ink-soft: #b8aa98;
+    --ink-light: #8a7e6e;
+    --gold: #c4a06a;
+    --gold-soft: #8a7048;
+    --moss: #7a9a7a;
+    --moss-soft: #5a7a5a;
+    --indigo: #6a9a9a;
+    --rust: #b88860;
+    --border: #3a3228;
+    --shadow: 0 2px 12px rgba(0,0,0,0.2);
+    --shadow-hover: 0 6px 24px rgba(0,0,0,0.35);
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- 顶部导航 --- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brand {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand .dot {
+  color: var(--gold);
+  margin: 0 0.15em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+/* --- Hero --- */
+.hero {
+  text-align: center;
+  padding: 5rem 2rem 2rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hero-mark {
+  font-family: var(--serif);
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.hero-mark .ai { color: var(--gold); }
+
+.hero-sub {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  letter-spacing: 0.15em;
+  margin-bottom: 2.5rem;
+  font-family: var(--serif);
+}
+
+.hero-tagline {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 2.2;
+  color: var(--ink-soft);
+}
+
+.hero-tagline .break { display: block; margin: 0.3em 0; }
+
+.hero-tagline em {
+  font-style: normal;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* --- 分隔线 --- */
+.divider {
+  max-width: 80px;
+  margin: 3rem auto;
+  border: none;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+
+.divider::after {
+  content: '❋';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0 0.8rem;
+  font-size: 0.8rem;
+  color: var(--gold-soft);
+}
+
+/* --- 入口卡片 --- */
+.entries {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 2rem 4rem;
+}
+
+.entry-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  color: var(--ink);
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.entry-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent, var(--gold));
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.entry-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent, var(--gold-soft));
+}
+
+.entry-card:hover::before { opacity: 1; }
+
+.entry-card .icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.entry-card .title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: var(--ink);
+}
+
+.entry-card .desc {
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+.entry-card:nth-child(1) { --accent: var(--moss); }
+.entry-card:nth-child(2) { --accent: var(--gold); }
+.entry-card:nth-child(3) { --accent: var(--indigo); }
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--ink-light);
+}
+
+/* --- 响应式 --- */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .nav-links { gap: 1.2rem; }
+  .hero { padding: 3rem 1.5rem 2rem; }
+  .hero-mark { font-size: 2.5rem; }
+  .hero-tagline { font-size: 1rem; }
+  .entries {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 1.5rem 3rem;
+  }
+  .entry-card { padding: 1.5rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="brand">Dhamma<span class="dot">·</span>AI</a>
+  <ul class="nav-links">
+    <li><a href="/佛法修学">佛法修学</a></li>
+    <li><a href="/AI实践">AI 实践</a></li>
+    <li><a href="/关于">关于</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <h1 class="hero-mark">Dhamma<span class="ai">AI</span></h1>
+  <p class="hero-sub">Dhammadassī</p>
+  <p class="hero-tagline">
+    以法为道，以器载智，以观为术
+  </p>
+</section>
+
+<hr class="divider">
+
+<section class="entries">
+  <a href="/佛法修学" class="entry-card">
+    <span class="icon">☸</span>
+    <div class="title">佛法修学</div>
+    <div class="desc">教理闻思 · 禅修实践 · 法义辨析</div>
+  </a>
+  <a href="/AI实践" class="entry-card">
+    <span class="icon">◇</span>
+    <div class="title">AI 实践</div>
+    <div class="desc">工具辅助学习 · 工作流 · 系统构建</div>
+  </a>
+  <a href="/关于" class="entry-card">
+    <span class="icon">❋</span>
+    <div class="title">关于</div>
+    <div class="desc">DhammaAI 是什么 · 为什么</div>
+  </a>
+</section>
+
+<footer class="footer">
+  <p>DhammaAI</p>
+</footer>
+
+</body>
+</html>

@@ -1,17 +1,16 @@
 ---
 title: DhammaAI
-description: 用 AI 与系统思维面对真实世界，用佛法与长期主义校正判断
+description: 以法为道，以器载智，以观为术
 ---
 
 <div class="hero">
 
 # DhammaAI
 
-<p class="hero-subtitle">Dhammadassī · DhammaAI</p>
+<p class="hero-subtitle">Dhammadassī</p>
 
 <p class="hero-tagline">
-用 AI 与系统思维面对真实世界<br/>
-用佛法与长期主义校正判断
+以法为道，以器载智，以观为术
 </p>
 
 </div>
