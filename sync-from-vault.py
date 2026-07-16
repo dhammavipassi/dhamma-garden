@@ -30,6 +30,8 @@ VAULT_ROOT = Path("/Users/dhammavipassi/Obsidian")
 QUARTZ_ROOT = Path("/Users/dhammavipassi/Github_projects/dhamma-garden")
 CONTENT_DIR = QUARTZ_ROOT / "content"
 PRESERVE_FILES = {"index.md"}  # Don't touch these in content/
+# 站点结构页：不在 vault 里，直接在 repo 里维护，同步时不清理
+PRESERVE_DIRS = {"佛法修学", "AI实践", "关于"}
 
 # ── Patterns ───────────────────────────────────────────────────
 PUBLISH_PATTERN = re.compile(r'^publish:\s*true\s*$', re.MULTILINE)
@@ -152,11 +154,13 @@ def extract_transclusion_deps(content: str) -> set[str]:
 
 
 def clean_content_dir():
-    """Remove all files from content/ except preserved files."""
+    """Remove all files from content/ except preserved files and dirs."""
     print("Cleaning content/ directory...")
     removed = 0
     for item in CONTENT_DIR.iterdir():
         if item.name in PRESERVE_FILES:
+            continue
+        if item.is_dir() and item.name in PRESERVE_DIRS:
             continue
         if item.is_dir():
             shutil.rmtree(item)
