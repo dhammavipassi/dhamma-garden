@@ -20,8 +20,8 @@
   // 衍生色
   --纸色-card: #fefcf8;
   --纸色-hover: #f5f0e8;
-  --墨色-soft: #5a5048;
-  --墨色-light: #8a7e72;
+  --墨色-soft: #4a443c;
+  --墨色-light: #6b6358;
   --暖金-soft: #d4b888;
   --暖金-bg: rgba(184, 148, 90, 0.06);
 
@@ -52,7 +52,7 @@
   --纸色-card: #241f1a;
   --纸色-hover: #2a2520;
   --墨色-soft: #b8aa98;
-  --墨色-light: #7a6e5e;
+  --墨色-light: #9a8e7e;
   --暖金-soft: #8a7048;
   --暖金-bg: rgba(196, 160, 106, 0.08);
 }
@@ -268,6 +268,8 @@ html {
 
 .sidebar.left {
   border-right: 1px solid var(--线条);
+  font-size: 0.95rem;
+  color: var(--墨色);
 }
 
 [saved-theme="dark"] .sidebar.left {
@@ -277,9 +279,64 @@ html {
 // page-title 站名样式
 .sidebar.left .page-title {
   font-family: var(--headerFont);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: $semiBoldWeight;
   letter-spacing: 0.02em;
+  color: var(--墨色);
+}
+
+.sidebar.left .page-title a {
+  color: var(--墨色);
+  font-weight: $semiBoldWeight;
+}
+
+// 搜索按钮：加大、加深
+.sidebar.left .search-button {
+  font-size: 0.95rem;
+  height: 2.4rem;
+  border-color: var(--线条);
+  color: var(--墨色-soft);
+}
+
+.sidebar.left .search-button > p {
+  color: var(--墨色-soft);
+}
+
+.sidebar.left .search-button svg .search-path {
+  stroke: var(--墨色-soft);
+  stroke-width: 2px;
+}
+
+// 暗色模式图标：加深
+.sidebar.left .darkmode svg {
+  fill: var(--墨色-soft);
+  width: 22px;
+  height: 22px;
+}
+
+// toolbar 行（搜索 + 暗色模式 + 阅读模式）
+.sidebar.left .toolbar {
+  gap: 0.6rem;
+}
+
+// reader-mode 图标
+.sidebar.left .reader-mode svg {
+  stroke: var(--墨色-soft);
+  stroke-width: 2px;
+  width: 22px;
+  height: 22px;
+}
+
+// 右侧 sidebar（图谱、反向链接）也统一
+.sidebar.right {
+  font-size: 0.9rem;
+  color: var(--墨色-soft);
+}
+
+.sidebar.right h3 {
+  font-size: 0.9rem;
+  color: var(--墨色);
+  font-weight: $semiBoldWeight;
 }
 
 // --- 首页 Hero ---

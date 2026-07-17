@@ -46,31 +46,32 @@ DhammaNav.css = `
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
 }
 .dhamma-nav .nav-item {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 0.8rem;
+  gap: 0.7rem;
+  padding: 0.6rem 0.8rem;
   border-radius: 6px;
-  font-weight: 400;
-  font-size: 0.95rem;
-  color: var(--darkgray);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--dark);
   text-decoration: none;
   background: transparent;
   transition: background 0.2s ease, color 0.2s ease;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .dhamma-nav .nav-item:hover {
   background: var(--highlight);
   color: var(--tertiary);
 }
 .dhamma-nav .nav-icon {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
-  opacity: 0.7;
+  opacity: 0.85;
+  stroke-width: 2;
 }
 .dhamma-nav .nav-item:hover .nav-icon {
   opacity: 1;
