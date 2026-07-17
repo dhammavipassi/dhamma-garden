@@ -99,9 +99,10 @@ function DhammaNav(props) {
   )
 }
 
+// 桌面竖栏基础样式；横顶栏形态由 custom.scss 统一覆盖
 DhammaNav.css = `
 .dhamma-nav {
-  margin-top: 1.5rem;
+  margin-top: 1.35rem;
   padding: 0;
 }
 .dhamma-nav ul {
@@ -110,22 +111,22 @@ DhammaNav.css = `
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 .dhamma-nav .nav-item {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.7rem 0.9rem;
-  border-radius: 6px;
+  gap: 0.65rem;
+  padding: 0.72rem 0.85rem;
+  border-radius: 8px;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.98rem;
   color: var(--墨色);
   text-decoration: none;
   background: transparent;
   border-left: 2.5px solid transparent;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 .dhamma-nav .nav-item:hover {
   background: var(--暖金-bg);
@@ -138,10 +139,10 @@ DhammaNav.css = `
   font-weight: 600;
 }
 .dhamma-nav .nav-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-  opacity: 0.85;
+  opacity: 0.88;
   stroke-width: 2;
 }
 .dhamma-nav .nav-item:hover .nav-icon,
