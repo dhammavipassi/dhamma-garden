@@ -4,6 +4,16 @@ DhammaAI 是 Dhammadassī（法观）的个人博客与数字花园，记录佛�
 
 站点基于 [Quartz v5](https://quartz.jzhao.xyz/) 构建，发布于 [guanzhang.dhammaai.com](https://guanzhang.dhammaai.com/)。
 
+## 文档映射
+
+| 文档 | 职责 |
+|---|---|
+| [AGENTS.md](./AGENTS.md) | **工程与三端验收 SSOT**（本仓库） |
+| `~/Github_projects/obsidian-projects/Active/DhammaAI/AGENT.md` | 项目中控：定位、边界、状态、日常维护 |
+| `~/Obsidian/1_Projects/Active/DhammaAI.md` | Obsidian 入口（软链到上表 AGENT.md） |
+
+布局/视觉实现细节以 `quartz.config.yaml` 与 `quartz/styles/custom.scss` 为准，文档不平行复制。
+
 ## 本地开发
 
 ```bash
@@ -19,7 +29,7 @@ npm test
 npx quartz build
 ```
 
-项目的响应式策略、三端兼容门槛和发布验收流程统一维护在 [AGENTS.md](./AGENTS.md)。任何布局或视觉调整都必须先满足该规范。
+任何布局或视觉调整都必须先满足 [AGENTS.md](./AGENTS.md) 中的三端兼容门槛。
 
 ## 发布
 

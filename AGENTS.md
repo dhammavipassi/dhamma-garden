@@ -6,10 +6,11 @@ DhammaAI 是基于 Quartz v5 的个人博客与数字花园，发布于 `guanzha
 
 ## 单一事实源
 
-- 本文件是本项目开发与验收规范的唯一事实源。
+- 本文件是本项目**开发与验收规范**的唯一事实源。
 - 页面结构与插件布局以 `quartz.config.yaml` 为准。
 - 视觉 token、版心与响应式规则以 `quartz/styles/custom.scss` 为准。
 - 可执行回归约束以测试文件为准；文档不复制实现细节。
+- **项目中控**（定位、边界、状态）在 Obsidian 映射文档：`~/Github_projects/obsidian-projects/Active/DhammaAI/AGENT.md`（`1_Projects/Active/DhammaAI.md` 为其软链）。中控可摘要本文件，但不得另立一套冲突的布局规则。
 
 ## 三端兼容硬门槛
 
