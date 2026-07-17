@@ -1,5 +1,7 @@
 import { createHash } from "crypto"
+import { readFile } from "node:fs/promises"
 import { FullSlug, joinSegments } from "../../util/path"
+import { faviconSourcePath } from "../../util/favicon"
 import { QuartzEmitterPlugin } from "../types"
 
 // @ts-ignore
@@ -488,16 +490,27 @@ export const ComponentResources: QuartzEmitterPlugin = () => {
       const cssHash = useHashing ? hashContent(cssContent) : null
       const prescriptHash = useHashing ? hashContent(prescript) : null
       const postscriptHash = useHashing ? hashContent(postscript) : null
+      const faviconContent = await readFile(joinSegments("quartz", faviconSourcePath))
+      const faviconHash = hashContent(faviconContent)
 
       const cssSlug = cssHash ? `index-${cssHash}` : "index"
       const prescriptSlug = prescriptHash ? `prescript-${prescriptHash}` : "prescript"
       const postscriptSlug = postscriptHash ? `postscript-${postscriptHash}` : "postscript"
+      const faviconSlug = `static/icon-${faviconHash}`
 
       ctx.hashedResourceNames = {
         "index.css": `${cssSlug}.css`,
         "prescript.js": `${prescriptSlug}.js`,
         "postscript.js": `${postscriptSlug}.js`,
+        [faviconSourcePath]: `${faviconSlug}.png`,
       }
+
+      yield write({
+        ctx,
+        slug: faviconSlug as FullSlug,
+        ext: ".png",
+        content: faviconContent,
+      })
 
       yield write({
         ctx,
