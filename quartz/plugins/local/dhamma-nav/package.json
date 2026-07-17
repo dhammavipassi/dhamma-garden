@@ -1,0 +1,19 @@
+{
+  "name": "dhamma-nav",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./components/index.js",
+    "./components": "./components/index.js"
+  },
+  "quartz": {
+    "name": "dhamma-nav",
+    "displayName": "Dhamma Navigation",
+    "description": "Custom sidebar navigation with icons for DhammaAI",
+    "version": "1.0.0",
+    "category": "component",
+    "components": {
+      "DhammaNav": "DhammaNav"
+    }
+  }
+}
