@@ -76,6 +76,7 @@ article {
   line-height: 1.85;
   color: var(--墨色);
   max-width: 66ch; // Bringhurst 66字符理想行宽
+  margin-inline: auto; // 在 center 列内居中，宽屏不左偏
 
   p {
     line-height: 1.85;
@@ -356,11 +357,21 @@ body[data-slug="index"] .sidebar.right {
 }
 
 body[data-slug="index"] .page > #quartz-body {
-  grid-template-columns: auto;
-  grid-template-areas:
-    '"grid-header"'
-    '"grid-center"'
-    '"grid-footer"';
+  grid-template-columns: 1fr;
+  grid-template-areas: "grid-header" "grid-center" "grid-footer";
+}
+
+@media all and ($tablet) {
+  body[data-slug="index"] .page > #quartz-body {
+    grid-template-columns: 1fr;
+    grid-template-areas: "grid-header" "grid-center" "grid-footer";
+  }
+}
+@media all and ($mobile) {
+  body[data-slug="index"] .page > #quartz-body {
+    grid-template-columns: 1fr;
+    grid-template-areas: "grid-sidebar-left" "grid-header" "grid-center" "grid-sidebar-right" "grid-footer";
+  }
 }
 
 .hero {
