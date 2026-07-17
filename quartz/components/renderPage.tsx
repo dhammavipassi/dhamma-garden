@@ -25,7 +25,7 @@ interface RenderComponents {
   afterBody: QuartzComponent[]
   left: QuartzComponent[]
   right: QuartzComponent[]
-  footer: QuartzComponent
+  footer?: QuartzComponent
   frame?: string
 }
 

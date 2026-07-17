@@ -15,7 +15,7 @@
   --墨色: #2a2620;
   --淡墨: #6b6358;
   --暖金: #b8945a;
-  --线条: #d8cdb8;
+  --线条: #d4c9b7;
 
   // 衍生色
   --纸色-card: #fefcf8;
@@ -40,6 +40,15 @@
 
   // 过渡
   --transition: 0.25s ease;
+
+  // 主阅读版心：中文约 40 字符/行，接近 Bringhurst 45-75ch 下限
+  // 48rem 偏宽导致换行追踪困难，42rem 约 40 中文字符更舒适
+  --reading-measure: 42rem;
+
+  // 入口卡片领域色（有信息编码意义，非装饰）
+  --accent-dhamma: #5a7a5a; // 苔绿 · 佛法修学
+  --accent-ai: #b8945a; // 暖金 · AI实践
+  --accent-about: #3a5a5a; // 靛青 · 关于
 }
 
 [saved-theme="dark"] {
@@ -75,8 +84,6 @@ article {
   font-size: 1.0625rem; // 17px
   line-height: 1.85;
   color: var(--墨色);
-  max-width: 66ch; // Bringhurst 66字符理想行宽
-  margin-inline: auto; // 在 center 列内居中，宽屏不左偏
 
   p {
     line-height: 1.85;
@@ -88,8 +95,22 @@ article {
   }
 }
 
+// 内页统一版心：在 .center 层级约束宽度，不靠子选择器分别管
+// 这样 folder 页和 content 页不管内部嵌套什么，起点和宽度都一致
+body:not([data-slug="index"]) .center > .popover-hint,
+body:not([data-slug="index"]) .center > .page-header {
+  max-width: min(var(--reading-measure), 100%);
+  margin-left: 0;
+  margin-right: auto;
+}
+
 // 标题：衬线，不喊叫
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: $semiBoldWeight;
   letter-spacing: 0.01em;
   color: var(--墨色);
@@ -116,7 +137,9 @@ article > h3 {
 // --- 链接 ---
 
 a {
-  transition: color var(--transition), border-color var(--transition);
+  transition:
+    color var(--transition),
+    border-color var(--transition);
   color: var(--暖金);
   font-weight: $normalWeight;
 }
@@ -348,102 +371,285 @@ html {
   font-weight: $semiBoldWeight;
 }
 
-// --- 首页 Hero ---
+// --- 首页：A3 混合 —— 顶栏品牌站 + 全宽内容 ---
 
-// 首页用 full-width 布局：隐藏侧栏，中间区撑满
-body[data-slug="index"] .sidebar.left,
+// 首页：左栏变顶栏，隐藏右栏，中间区撑满
 body[data-slug="index"] .sidebar.right {
   display: none;
 }
 
 body[data-slug="index"] .page > #quartz-body {
   grid-template-columns: 1fr;
-  grid-template-areas: "grid-header" "grid-center" "grid-footer";
+  grid-template-areas:
+    "grid-sidebar-left"
+    "grid-header"
+    "grid-center"
+    "grid-footer";
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  column-gap: 0;
+}
+
+body[data-slug="index"] .sidebar.left {
+  display: flex !important;
+  position: relative;
+  height: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  border-right: none;
+  border-bottom: 1px solid var(--线条);
+  padding: 1.25rem 0.25rem 1.1rem !important;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+// 首页站名更像 brand mark
+body[data-slug="index"] .sidebar.left .page-title {
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+body[data-slug="index"] .sidebar.left .page-title a {
+  text-decoration: none;
+}
+
+// 首页导航横向
+body[data-slug="index"] .dhamma-nav {
+  margin-top: 0;
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+body[data-slug="index"] .dhamma-nav ul {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.4rem;
+  justify-content: center;
+}
+
+body[data-slug="index"] .dhamma-nav .nav-item {
+  border-left: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 4px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--墨色-soft);
+}
+
+body[data-slug="index"] .dhamma-nav .nav-item:hover,
+body[data-slug="index"] .dhamma-nav .nav-item.active {
+  background: transparent;
+  color: var(--暖金);
+  border-bottom-color: var(--暖金);
+  font-weight: 500;
+}
+
+body[data-slug="index"] .dhamma-nav .nav-icon {
+  display: none;
+}
+
+// 首页 toolbar（搜索/暗色）靠右
+body[data-slug="index"] .sidebar.left .toolbar,
+body[data-slug="index"] .sidebar.left .flex-component {
+  margin-left: auto;
+}
+
+body[data-slug="index"] .sidebar.left .search-button {
+  height: 2.1rem;
+  font-size: 0.85rem;
+}
+
+body[data-slug="index"] .page-header {
+  margin-top: 0.5rem !important;
 }
 
 @media all and ($tablet) {
   body[data-slug="index"] .page > #quartz-body {
     grid-template-columns: 1fr;
-    grid-template-areas: "grid-header" "grid-center" "grid-footer";
+    grid-template-areas:
+      "grid-sidebar-left"
+      "grid-header"
+      "grid-center"
+      "grid-footer";
   }
 }
+
 @media all and ($mobile) {
   body[data-slug="index"] .page > #quartz-body {
     grid-template-columns: 1fr;
-    grid-template-areas: "grid-sidebar-left" "grid-header" "grid-center" "grid-sidebar-right" "grid-footer";
+    grid-template-areas:
+      "grid-sidebar-left"
+      "grid-header"
+      "grid-center"
+      "grid-footer";
+    padding: 0 1rem;
+  }
+
+  body[data-slug="index"] .sidebar.left {
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 1.2rem !important;
+  }
+
+  body[data-slug="index"] .dhamma-nav {
+    justify-content: flex-start;
+    order: 2;
+  }
+
+  body[data-slug="index"] .dhamma-nav ul {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  body[data-slug="index"] .sidebar.left .toolbar,
+  body[data-slug="index"] .sidebar.left .flex-component {
+    margin-left: 0;
+    order: 3;
   }
 }
 
 .hero {
   text-align: center;
-  padding: 2rem 1.5rem 2rem;
+  padding: 4.5rem 1.5rem 1.5rem;
   max-width: 680px;
   margin: 0 auto;
 }
 
-.hero h1 {
-  font-size: 3.2rem;
+.hero h1,
+.hero-mark {
+  font-size: 3.4rem;
   font-weight: $semiBoldWeight;
   letter-spacing: 0.08em;
-  margin-bottom: 0.3rem;
+  margin: 0 0 0.4rem;
   color: var(--墨色);
+  line-height: 1.2;
+}
+
+.hero-mark-ai {
+  color: var(--暖金);
+  font-weight: $semiBoldWeight;
 }
 
 .hero-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--墨色-light);
-  letter-spacing: 0.2em;
-  margin-bottom: 2.5rem;
-  font-style: italic;
+  letter-spacing: 0.18em;
+  margin: 0 0 2.2rem;
+  font-style: normal;
 }
 
 .hero-tagline {
-  font-size: 1.2rem;
-  line-height: 2.4;
+  font-size: 1.18rem;
+  line-height: 2.3;
   color: var(--墨色-soft);
   letter-spacing: 0.08em;
   font-weight: $normalWeight;
+  margin: 0;
+}
+
+// 首页装饰分隔
+.home-divider {
+  max-width: 72px;
+  margin: 2.2rem auto 2.4rem;
+  border: none;
+  border-top: 1px solid var(--线条);
+  position: relative;
+  overflow: visible;
+}
+
+.home-divider::after {
+  content: "❋";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--纸色);
+  padding: 0 0.65rem;
+  font-size: 0.75rem;
+  color: var(--暖金-soft);
+  line-height: 1;
 }
 
 // --- 首页入口卡片 ---
 
 .entry-cards {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1rem 1.5rem 5rem;
-  max-width: 720px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  padding: 0.5rem 0.5rem 2.5rem;
+  max-width: 900px;
   margin: 0 auto;
-  flex-wrap: wrap;
 }
 
 .entry-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
-  padding: 2.2rem 2rem;
-  min-width: 170px;
+  gap: 0.55rem;
+  padding: 2rem 1.4rem 1.8rem;
+  min-width: 0;
   border: 1px solid var(--线条);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: var(--纸色-card);
   color: var(--墨色);
   text-decoration: none;
-  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  overflow: hidden;
+  transition:
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.entry-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--暖金));
+  opacity: 0.65;
+  transition: opacity var(--transition);
+}
+
+.entry-card--dhamma {
+  --card-accent: var(--accent-dhamma);
+}
+
+.entry-card--ai {
+  --card-accent: var(--accent-ai);
+}
+
+.entry-card--about {
+  --card-accent: var(--accent-about);
 }
 
 .entry-card:hover {
-  border-color: var(--暖金);
+  border-color: var(--card-accent, var(--暖金));
   transform: translateY(-3px);
-  box-shadow: 0 4px 16px rgba(184, 148, 90, 0.1);
+  box-shadow: 0 6px 22px rgba(139, 115, 85, 0.1);
   color: var(--墨色);
 }
 
+.entry-card:hover::before {
+  opacity: 1;
+}
+
 .entry-card-icon {
-  width: 32px;
-  height: 32px;
-  color: var(--暖金);
-  opacity: 0.8;
+  width: 30px;
+  height: 30px;
+  color: var(--card-accent, var(--暖金));
+  opacity: 0.85;
+  margin-bottom: 0.15rem;
 }
 
 .entry-card:hover .entry-card-icon {
@@ -451,17 +657,27 @@ body[data-slug="index"] .page > #quartz-body {
 }
 
 .entry-card-title {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: $semiBoldWeight;
   color: var(--墨色);
   margin: 0;
+  letter-spacing: 0.02em;
 }
 
 .entry-card-desc {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--淡墨);
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.home-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--墨色-light);
+  letter-spacing: 0.12em;
+  padding: 0.5rem 1rem 3.5rem;
   margin: 0;
 }
 
@@ -504,12 +720,15 @@ body[data-slug="index"] .page > #quartz-body {
 
 // --- 空状态 ---
 
+// 与正文同起点、同段距；不要额外 padding 造成「和关于页间距不一样」
 .folder-empty-state {
-  text-align: center;
-  padding: 3rem 1rem;
+  text-align: left;
+  padding: 0;
+  margin: 1.3em 0 0; // 与 article p + p 一致
   color: var(--淡墨);
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 // --- Footer ---
@@ -522,25 +741,52 @@ footer {
   margin-top: 3.5rem;
 }
 
+// --- 栏目页 / 阅读页微调 ---
+
+.page-header .article-title {
+  letter-spacing: 0.02em;
+}
+
+.breadcrumb-container {
+  font-size: 0.88rem;
+  color: var(--淡墨);
+}
+
+.breadcrumb-element a {
+  color: var(--墨色-soft);
+  text-decoration: none;
+}
+
+.breadcrumb-element a:hover {
+  color: var(--暖金);
+}
+
+// 首页 article 不限制版心，让入口卡片有空间
+body[data-slug="index"] article {
+  max-width: none;
+  margin-inline: 0;
+}
+
 // --- 响应式 ---
 
 // iPad 竖屏
 @media (min-width: 769px) and (max-width: 1024px) {
   .hero {
-    padding: 4rem 1.5rem 2rem;
+    padding: 3.5rem 1.2rem 1.2rem;
   }
 
-  .hero h1 {
+  .hero h1,
+  .hero-mark {
     font-size: 2.8rem;
   }
 
   .entry-cards {
     gap: 1rem;
+    max-width: 760px;
   }
 
   .entry-card {
-    min-width: 140px;
-    padding: 1.5rem 1.2rem;
+    padding: 1.6rem 1rem 1.5rem;
   }
 }
 
@@ -560,12 +806,13 @@ footer {
   }
 
   .hero {
-    padding: 3rem 1rem 2rem;
+    padding: 2.8rem 0.5rem 1rem;
   }
 
-  .hero h1 {
-    font-size: 2.2rem;
-    letter-spacing: 0.1em;
+  .hero h1,
+  .hero-mark {
+    font-size: 2.25rem;
+    letter-spacing: 0.08em;
   }
 
   .hero-tagline {
@@ -574,26 +821,101 @@ footer {
   }
 
   .entry-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1rem 3rem;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 0.5rem 0 1.5rem;
+    max-width: 320px;
   }
 
   .entry-card {
-    width: 100%;
-    max-width: 280px;
     flex-direction: row;
+    align-items: center;
     text-align: left;
     gap: 1rem;
-    padding: 1.2rem 1.5rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .entry-card::before {
+    width: 3px;
+    height: 100%;
+    right: auto;
   }
 
   .entry-card-icon {
     flex-shrink: 0;
+    margin-bottom: 0;
   }
 
+  .entry-card-title,
   .entry-card-desc {
     text-align: left;
+    width: 100%;
   }
+
+  .home-footer {
+    padding-bottom: 2.5rem;
+  }
+}
+
+// --- 全站收官：空态 / 动效 / 阅读节奏 ---
+
+// 空的页面列表（栏目尚无笔记）彻底不占高度，避免短页比「关于」多出一块空白
+.page-listing:has(ul.section-ul:empty),
+.page-listing:not(:has(li)),
+.page-listing ul.section-ul:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// FolderContent 包住 article + listing；listing 隐藏后不再被默认 2em 顶距撑开
+body:not([data-slug="index"]) .page-listing ul.section-ul {
+  margin-top: 1.5rem;
+}
+
+// 中栏阅读起点：与侧栏 gap 配合，避免贴线
+body:not([data-slug="index"]) .page > #quartz-body .center {
+  min-width: 0;
+}
+
+// 壳页 / 笔记页：中栏底部留白
+body:not([data-slug="index"]) .center {
+  padding-bottom: 3rem;
+}
+
+// content-meta 弱化（壳页已用 condition 藏；笔记页仍可见）
+.content-meta {
+  opacity: 0.9;
+}
+
+// 图谱容器：结构保留，空网时降低存在感（有链接后自然饱满）
+.sidebar.right .graph {
+  opacity: 0.95;
+}
+
+// 减少动效偏好
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .entry-card,
+  .entry-card:hover,
+  a,
+  .dhamma-nav .nav-item {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+// 栏目页标题区：目录感，不挤
+body:not([data-slug="index"]) .article-title {
+  font-size: 1.85rem;
+  margin-bottom: 0.35rem;
+}
+
+// 内页 hr 减弱「系统感」
+body:not([data-slug="index"]) .center > hr {
+  opacity: 0.55;
+  margin: 2.5rem 0 1.5rem;
 }

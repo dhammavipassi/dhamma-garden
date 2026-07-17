@@ -54,7 +54,7 @@ export const DefaultFrame: PageFrame = {
             <BodyComponent {...componentData} />
           ))}
         </div>
-        <Footer {...componentData} />
+        {Footer && <Footer {...componentData} />}
       </>
     )
   },

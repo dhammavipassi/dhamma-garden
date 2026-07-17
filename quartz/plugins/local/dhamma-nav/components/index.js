@@ -1,50 +1,101 @@
 import { h } from "preact"
 
+/** Minimal relative path resolution for Quartz FullSlugs. */
+function resolveRelative(from, to) {
+  const fromParts = String(from).split("/").filter(Boolean)
+  // drop file segment
+  if (fromParts.length) fromParts.pop()
+  const toParts = String(to)
+    .replace(/\/index$/, "")
+    .split("/")
+    .filter(Boolean)
+  // climb out of from dir
+  const ups = fromParts.map(() => "..")
+  const joined = [...ups, ...toParts].join("/")
+  // folder pages prefer trailing slash style used by quartz
+  return (joined ? `${joined}/` : "./").replace(/^(?!\.)/, "./")
+}
+
+function simplifySlug(slug) {
+  const s = String(slug).replace(/\/index$/, "")
+  return s === "index" || s === "" ? "/" : s
+}
+
 function DhammaNav(props) {
   const fileData = props?.fileData ?? {}
-  const slug = fileData?.slug ?? ""
-  const isHome = slug === "index"
+  const slug = fileData?.slug ?? "index"
+  const simple = simplifySlug(slug)
+  const isHome = simple === "/" || slug === "index"
 
   const navItems = [
-    { href: "./佛法修学", label: "佛法修学", match: "佛法修学", icon: [
-      h("path", { d: "M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z" }),
-      h("path", { d: "M12 6v8" })
-    ]},
-    { href: "./AI实践", label: "AI 实践", match: "AI实践", icon: [
-      h("rect", { x: "4", y: "6", width: "16", height: "12", rx: "2" }),
-      h("path", { d: "M8 10h8M8 14h5" }),
-      h("circle", { cx: "17", cy: "14", r: "0.5", fill: "currentColor" })
-    ]},
-    { href: "./关于", label: "关于", match: "关于", icon: [
-      h("circle", { cx: "12", cy: "12", r: "9" }),
-      h("path", { d: "M12 16v-4M12 8h.01" })
-    ]}
+    {
+      slug: "佛法修学/index",
+      label: "佛法修学",
+      match: "佛法修学",
+      icon: [
+        h("path", { d: "M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z" }),
+        h("path", { d: "M12 6v8" }),
+      ],
+    },
+    {
+      slug: "ai实践/index",
+      label: "AI 实践",
+      match: "AI实践",
+      icon: [
+        h("rect", { x: "4", y: "6", width: "16", height: "12", rx: "2" }),
+        h("path", { d: "M8 10h8M8 14h5" }),
+        h("circle", { cx: "17", cy: "14", r: "0.5", fill: "currentColor" }),
+      ],
+    },
+    {
+      slug: "关于/index",
+      label: "关于",
+      match: "关于",
+      icon: [h("circle", { cx: "12", cy: "12", r: "9" }), h("path", { d: "M12 16v-4M12 8h.01" })],
+    },
   ]
 
-  return h("nav", { class: "dhamma-nav" },
-    h("ul", null,
-      navItems.map(item => {
-        const isActive = !isHome && slug.toLowerCase().startsWith(item.match.toLowerCase())
-        return h("li", null,
-          h("a", {
-            href: item.href,
-            class: `nav-item${isActive ? " active" : ""}`,
-            "aria-current": isActive ? "page" : undefined
-          },
-            h("svg", {
-              class: "nav-icon",
-              viewBox: "0 0 24 24",
-              fill: "none",
-              stroke: "currentColor",
-              "stroke-width": "1.5",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }, ...item.icon),
-            h("span", { class: "nav-label" }, item.label)
-          )
+  return h(
+    "nav",
+    { class: "dhamma-nav", "aria-label": "主导航" },
+    h(
+      "ul",
+      null,
+      navItems.map((item) => {
+        const isActive =
+          !isHome &&
+          (String(slug).toLowerCase().startsWith(item.match.toLowerCase()) ||
+            String(simple).toLowerCase().includes(item.match.toLowerCase()))
+        const href = resolveRelative(slug, item.slug)
+        return h(
+          "li",
+          { key: item.slug },
+          h(
+            "a",
+            {
+              href,
+              class: `nav-item${isActive ? " active" : ""}`,
+              "aria-current": isActive ? "page" : undefined,
+            },
+            h(
+              "svg",
+              {
+                class: "nav-icon",
+                viewBox: "0 0 24 24",
+                fill: "none",
+                stroke: "currentColor",
+                "stroke-width": "1.5",
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "aria-hidden": "true",
+              },
+              item.icon,
+            ),
+            h("span", { class: "nav-label" }, item.label),
+          ),
         )
-      })
-    )
+      }),
+    ),
   )
 }
 

@@ -44,7 +44,7 @@ export const FullWidthFrame: PageFrame = {
             ))}
           </div>
         </div>
-        <Footer {...componentData} />
+        {Footer && <Footer {...componentData} />}
       </>
     )
   },

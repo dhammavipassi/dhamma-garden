@@ -16,6 +16,13 @@ const builtinConditions: Record<string, ConditionPredicate> = {
     const toc = (props.fileData as Record<string, unknown>).toc
     return Array.isArray(toc) && toc.length > 0
   },
+  // 非壳页：首页与各 */index 栏目页不算；普通笔记页为 true（随内容增长 meta 自然出现）
+  "not-shell": (props) => {
+    const slug = String(props.fileData.slug ?? "").replace(/\/$/, "")
+    if (slug === "index" || slug === "") return false
+    if (slug.endsWith("/index")) return false
+    return true
+  },
 }
 
 const customConditions = new Map<string, ConditionPredicate>()

@@ -3,8 +3,6 @@ title: 关于
 description: 关于 DhammaAI
 ---
 
-# 关于
-
 **DhammaAI** 是 Dhammadassī（法观）的个人站点。
 
 这里记录的是一个人在佛法与 AI 交汇处的真实实践——教理闻思、禅修记录、法义辨析，以及 AI 如何隐性地融入学习与日用的各个层面。

@@ -26,7 +26,7 @@ configuration:
     colors:
       lightMode:
         light: "#faf6f1"
-        lightgray: "#d8cdb8"
+        lightgray: "#d4c9b7"
         gray: "#6b6358"
         darkgray: "#4a443c"
         dark: "#2a2620"
@@ -77,6 +77,7 @@ plugins:
     layout:
       position: right
       priority: 30
+      condition: has-toc
   - source: github:quartz-community/crawl-links
     enabled: true
     options:
@@ -136,11 +137,13 @@ plugins:
     layout:
       position: left
       priority: 50
+  # 首页不挂图谱；栏目页与正文页保留标准右栏，互链增多后图谱自然丰富
   - source: github:quartz-community/graph
     enabled: true
     layout:
       position: right
       priority: 10
+      condition: not-index
   - source: github:quartz-community/search
     enabled: true
     layout:
@@ -149,8 +152,11 @@ plugins:
       group: toolbar
       groupOptions:
         grow: true
+  # 结构位保留：无反链时插件自身 hideWhenEmpty
   - source: github:quartz-community/backlinks
     enabled: true
+    options:
+      hideWhenEmpty: true
     layout:
       position: right
       priority: 50
@@ -160,12 +166,13 @@ plugins:
       position: beforeBody
       priority: 10
       condition: not-index
+  # 壳页（*/index）不显示日期/阅读时长；普通笔记页显示
   - source: github:quartz-community/content-meta
     enabled: true
     layout:
       position: beforeBody
       priority: 20
-      condition: not-index
+      condition: not-shell
   - source: github:quartz-community/tag-list
     enabled: false
     layout:
@@ -190,6 +197,9 @@ plugins:
       group: toolbar
   - source: github:quartz-community/breadcrumbs
     enabled: true
+    options:
+      rootName: 首页
+      spacerSymbol: ❯
     layout:
       position: beforeBody
       priority: 5
@@ -283,16 +293,15 @@ layout:
         beforeBody: []
         left: []
         right: []
+    # 所有内页保留右栏结构（graph/backlinks/toc），各组件按内容自行显示
     content: {}
     folder:
       exclude:
         - reader-mode
-      positions:
-        right: []
+        - content-meta
     tag:
       exclude:
         - reader-mode
-      positions:
-        right: []
+        - content-meta
     canvas: {}
     bases: {}
