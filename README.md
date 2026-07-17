@@ -4,13 +4,20 @@ DhammaAI 是 Dhammadassī（法观）的个人博客与数字花园，记录佛�
 
 站点基于 [Quartz v5](https://quartz.jzhao.xyz/) 构建，发布于 [guanzhang.dhammaai.com](https://guanzhang.dhammaai.com/)。
 
-## 文档映射
+## 文档映射与三层互通
 
-| 文档 | 职责 |
-|---|---|
-| [AGENTS.md](./AGENTS.md) | **工程与三端验收 SSOT**（本仓库） |
-| `~/Github_projects/obsidian-projects/Active/DhammaAI/AGENT.md` | 项目中控：定位、边界、状态、日常维护 |
-| `~/Obsidian/1_Projects/Active/DhammaAI.md` | Obsidian 入口（软链到上表 AGENT.md） |
+| 文档                                     | 职责                                    |
+| ---------------------------------------- | --------------------------------------- |
+| [AGENTS.md](./AGENTS.md)                 | **工程与三端验收 SSOT** + 会话开闭门禁  |
+| [PROJECT.md](./PROJECT.md)               | 软链 → 项目中控 `AGENT.md`（状态/边界） |
+| `./scripts/project-closeout`             | 收尾：校验软链、刷新中控基线、更新记忆  |
+| Obsidian `1_Projects/Active/DhammaAI.md` | 软链 → 同一中控（**无需再拷贝**）       |
+
+完成可交付工作后：
+
+```bash
+./scripts/project-closeout --summary "一句话摘要"
+```
 
 布局/视觉实现细节以 `quartz.config.yaml` 与 `quartz/styles/custom.scss` 为准，文档不平行复制。
 

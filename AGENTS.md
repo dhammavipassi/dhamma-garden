@@ -10,7 +10,30 @@ DhammaAI 是基于 Quartz v5 的个人博客与数字花园，发布于 `guanzha
 - 页面结构与插件布局以 `quartz.config.yaml` 为准。
 - 视觉 token、版心与响应式规则以 `quartz/styles/custom.scss` 为准。
 - 可执行回归约束以测试文件为准；文档不复制实现细节。
-- **项目中控**（定位、边界、状态）在 Obsidian 映射文档：`~/Github_projects/obsidian-projects/Active/DhammaAI/AGENT.md`（`1_Projects/Active/DhammaAI.md` 为其软链）。中控可摘要本文件，但不得另立一套冲突的布局规则。
+- **项目中控**（定位、边界、状态）在 `PROJECT.md`（软链 → `obsidian-projects/Active/DhammaAI/AGENT.md`；Obsidian `1_Projects/Active/DhammaAI.md` 再软链到同一文件）。中控可摘要本文件，但不得另立一套冲突的布局规则。
+- 系统层混合项目协议见 Vault `1_Projects/agent.md`「混合项目三层互通」。
+
+## 会话开闭（与中控 / Obsidian / 记忆互通）
+
+### 开场
+
+1. 读 `PROJECT.md`（中控：状态与边界）。
+2. 再读本文件（工程门槛）。
+3. 若延续旧基线：`nmem m search "dhamma-garden"`。
+
+### 收尾（可交付完成后必做）
+
+1. 完成本文件要求的 check / test / build / 推送与线上验收（若适用）。
+2. 运行互通收尾（刷新中控基线块 + 更新记忆）：
+
+   ```bash
+   ./scripts/project-closeout --summary "一句话说明本次交付"
+   # 或 check-only：
+   ./scripts/project-closeout --check-only
+   ```
+
+3. 不得只改代码仓文档而不更新中控状态；Obsidian 无需另拷——中控软链即入口。
+4. 仅当 Active/Paused/Completed 生命周期变化时，才改 `PROJECTS-REGISTRY.yml` 与 Vault 内 symlink 位置。
 
 ## 三端兼容硬门槛
 
