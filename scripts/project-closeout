@@ -1,1 +1,49 @@
-../../obsidian-projects/Active/DhammaAI/scripts/project-closeout.sh
+#!/usr/bin/env bash
+# 工程仓收尾入口（真文件，非外链软链，保证 CI 可检出）。
+# 本机：转发到 obsidian-projects 中控完整脚本。
+# CI / 无中控目录：仅做仓库内轻量检查，exit 0。
+
+set -euo pipefail
+
+CONTROL_SCRIPT="${CONTROL_SCRIPT:-$HOME/Github_projects/obsidian-projects/Active/DhammaAI/scripts/project-closeout.sh}"
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+if [[ -x "$CONTROL_SCRIPT" ]]; then
+  exec "$CONTROL_SCRIPT" "$@"
+fi
+
+# --- CI / 无中控环境：轻量自检 ---
+echo "== project-closeout (repo-local fallback) =="
+echo "control script not found: $CONTROL_SCRIPT"
+echo "running repo-local checks only"
+
+fail=0
+[[ -f "$REPO_ROOT/AGENTS.md" ]] || {
+  echo "FAIL missing AGENTS.md"
+  fail=1
+}
+[[ -f "$REPO_ROOT/PROJECT.md" ]] || {
+  echo "FAIL missing PROJECT.md"
+  fail=1
+}
+if command -v rg >/dev/null 2>&1; then
+  if rg -q "project-closeout" "$REPO_ROOT/AGENTS.md"; then
+    echo "OK    AGENTS.md mentions project-closeout"
+  else
+    echo "FAIL  AGENTS.md missing closeout mention"
+    fail=1
+  fi
+elif grep -q "project-closeout" "$REPO_ROOT/AGENTS.md"; then
+  echo "OK    AGENTS.md mentions project-closeout"
+else
+  echo "FAIL  AGENTS.md missing closeout mention"
+  fail=1
+fi
+
+if [[ $fail -ne 0 ]]; then
+  exit 1
+fi
+
+echo "OK    repo-local continuity markers present"
+echo "Skip nmem / AGENT baseline (no control plane on this machine)."
+exit 0

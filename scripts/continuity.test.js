@@ -5,20 +5,24 @@ import test from "node:test"
 
 const root = path.resolve(import.meta.dirname, "..")
 
-test("PROJECT.md softlinks to DhammaAI control AGENT.md", () => {
-  const link = path.join(root, "PROJECT.md")
-  assert.ok(fs.lstatSync(link).isSymbolicLink(), "PROJECT.md must be a symlink")
-  const target = fs.readlinkSync(link)
-  assert.match(target, /DhammaAI\/AGENT\.md$/)
-  assert.ok(fs.existsSync(link), "PROJECT.md target must resolve")
-  const body = fs.readFileSync(link, "utf8")
-  assert.match(body, /三层互通|project-closeout/)
+test("PROJECT.md is a committed control-plane pointer in the repo", () => {
+  const file = path.join(root, "PROJECT.md")
+  assert.ok(fs.existsSync(file), "PROJECT.md must exist")
+  // 真文件，禁止依赖仓库外软链（CI 无 obsidian-projects）
+  assert.equal(fs.lstatSync(file).isSymbolicLink(), false)
+  const body = fs.readFileSync(file, "utf8")
+  assert.match(body, /DhammaAI\/AGENT\.md/)
+  assert.match(body, /project-closeout/)
 })
 
-test("project-closeout softlinks to control script", () => {
-  const link = path.join(root, "scripts", "project-closeout")
-  assert.ok(fs.lstatSync(link).isSymbolicLink() || fs.existsSync(link))
-  assert.ok(fs.existsSync(link), "closeout entry must resolve")
+test("project-closeout is a committed executable entry in the repo", () => {
+  const file = path.join(root, "scripts", "project-closeout")
+  assert.ok(fs.existsSync(file), "scripts/project-closeout must exist")
+  assert.equal(fs.lstatSync(file).isSymbolicLink(), false)
+  const body = fs.readFileSync(file, "utf8")
+  assert.match(body, /CONTROL_SCRIPT|project-closeout\.sh/)
+  // shebang present
+  assert.match(body, /^#!\/usr\/bin\/env bash/m)
 })
 
 test("AGENTS.md requires session closeout for continuity", () => {
