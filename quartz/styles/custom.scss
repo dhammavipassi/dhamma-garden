@@ -44,6 +44,8 @@
   // 主阅读版心：中文约 40 字符/行，接近 Bringhurst 45-75ch 下限
   // 48rem 偏宽导致换行追踪困难，42rem 约 40 中文字符更舒适
   --reading-measure: 42rem;
+  // 桌面内页在三栏网格中的二级留白：32px 列缝 + 64px 阅读内缩 = 96px
+  --inner-page-inset: 4rem;
 
   // 入口卡片领域色（有信息编码意义，非装饰）
   --accent-dhamma: #5a7a5a; // 苔绿 · 佛法修学
@@ -880,6 +882,7 @@ body:not([data-slug="index"]) .page > #quartz-body > .center {
   min-width: 0;
   width: 100%;
   margin-inline: 0;
+  padding-inline-start: var(--inner-page-inset);
 }
 
 // 壳页 / 笔记页：中栏底部留白
@@ -922,4 +925,193 @@ body:not([data-slug="index"]) .article-title {
 body:not([data-slug="index"]) .center > hr {
   opacity: 0.55;
   margin: 2.5rem 0 1.5rem;
+}
+
+// --- 内页响应式布局契约 ---
+
+// iPad 与手机不沿用桌面的固定左栏：统一为顶栏 + 单列正文。
+// 右栏在 iPad 下移，手机隐藏，避免低价值组件挤占首屏。
+@media all and ($tablet), all and ($mobile) {
+  body:not([data-slug="index"]) .page > #quartz-body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "grid-sidebar-left"
+      "grid-center"
+      "grid-sidebar-right"
+      "grid-footer";
+    column-gap: 0;
+    row-gap: 0;
+    max-width: 1100px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  body:not([data-slug="index"]) .page > #quartz-body > .center {
+    grid-area: grid-center;
+    padding-inline-start: 0;
+  }
+
+  body:not([data-slug="index"]) .sidebar.left {
+    display: flex !important;
+    position: relative;
+    height: auto;
+    width: 100%;
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid var(--线条);
+    padding: 1.25rem 0.25rem 1.1rem !important;
+  }
+
+  body:not([data-slug="index"]) .sidebar.left .page-title {
+    flex: 0 0 auto;
+    margin: 0;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav ul {
+    width: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.15rem 0.4rem;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav .nav-item {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 4px;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.92rem;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav .nav-item:hover,
+  body:not([data-slug="index"]) .dhamma-nav .nav-item.active {
+    background: transparent;
+    color: var(--暖金);
+    border-bottom-color: var(--暖金);
+    font-weight: 500;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav .nav-icon {
+    display: none;
+  }
+
+  body:not([data-slug="index"]) .sidebar.left > .flex-component {
+    flex: 0 1 180px;
+    margin-left: auto;
+  }
+
+  body:not([data-slug="index"]) .sidebar.left .search-button {
+    font-size: 0.85rem;
+  }
+
+  // 所有触屏顶栏共享同一点击热区下限（44px）
+  .sidebar.left .page-title a,
+  .sidebar.left .dhamma-nav .nav-item {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .sidebar.left .search-button {
+    height: 2.75rem;
+  }
+
+  // 首页原有规则选择器更具体，需要在触屏断点显式覆盖。
+  body[data-slug="index"] .sidebar.left .search-button {
+    height: 2.75rem;
+  }
+
+  .sidebar.left :is(.darkmode, .reader-mode) {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    display: grid;
+    place-items: center;
+  }
+
+  body:not([data-slug="index"]) .center > .page-header,
+  body:not([data-slug="index"]) .center > .popover-hint,
+  body:not([data-slug="index"]) .center > .page-footer,
+  body:not([data-slug="index"]) .center > hr,
+  body:not([data-slug="index"]) .sidebar.right {
+    width: 100%;
+    max-width: var(--reading-measure);
+    margin-inline: auto;
+  }
+
+  body:not([data-slug="index"]) .page-header {
+    margin-top: 2.5rem;
+  }
+
+  body:not([data-slug="index"]) .center > hr {
+    margin: 2.5rem auto 1.5rem;
+  }
+
+  body:not([data-slug="index"]) .sidebar.right {
+    border-left: none;
+    border-top: 1px solid var(--线条);
+    padding: 1.5rem 0 2rem !important;
+    gap: 2rem;
+  }
+}
+
+@media all and ($mobile) {
+  body:not([data-slug="index"]) .page > #quartz-body {
+    padding-inline: 1rem;
+  }
+
+  body:not([data-slug="index"]) .sidebar.left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+    padding: 1.2rem 0 1rem !important;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav {
+    order: 2;
+    justify-content: flex-start;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav ul {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.1rem;
+  }
+
+  body:not([data-slug="index"]) .dhamma-nav .nav-item {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.9rem;
+  }
+
+  body:not([data-slug="index"]) .sidebar.left > .flex-component {
+    order: 3;
+    flex: 0 0 auto;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  body:not([data-slug="index"]) .page-header {
+    margin-top: 1.75rem;
+  }
+
+  body:not([data-slug="index"]) .sidebar.right {
+    display: none;
+  }
 }
