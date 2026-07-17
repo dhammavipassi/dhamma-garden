@@ -873,9 +873,13 @@ body:not([data-slug="index"]) .page-listing ul.section-ul {
   margin-top: 1.5rem;
 }
 
-// 中栏阅读起点：与侧栏 gap 配合，避免贴线
-body:not([data-slug="index"]) .page > #quartz-body .center {
+// 中栏必须占满 CSS Grid 分配的轨道；否则基础样式的 auto margin
+// 会让短页面按内容宽度收缩居中，造成不同栏目起点漂移
+body:not([data-slug="index"]) .page > #quartz-body > .center {
+  box-sizing: border-box;
   min-width: 0;
+  width: 100%;
+  margin-inline: 0;
 }
 
 // 壳页 / 笔记页：中栏底部留白

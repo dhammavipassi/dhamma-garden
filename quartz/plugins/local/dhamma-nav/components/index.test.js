@@ -30,3 +30,15 @@ test("custom styles do not collapse the desktop right-sidebar track", () => {
   assert.doesNotMatch(styles, /:has\(\.sidebar\.right:empty\)/)
   assert.doesNotMatch(styles, /\.sidebar\.right:not\(:has\(\*\)\)/)
 })
+
+test("inner center fills its grid track regardless of content length", () => {
+  const styles = fs.readFileSync("quartz/styles/custom.scss", "utf8")
+  const centerRule = styles.match(
+    /body:not\(\[data-slug="index"\]\) \.page > #quartz-body > \.center\s*\{([^}]*)\}/,
+  )
+
+  assert.ok(centerRule, "expected one canonical inner-page center sizing rule")
+  assert.match(centerRule[1], /min-width:\s*0/)
+  assert.match(centerRule[1], /width:\s*100%/)
+  assert.match(centerRule[1], /margin-inline:\s*0/)
+})
