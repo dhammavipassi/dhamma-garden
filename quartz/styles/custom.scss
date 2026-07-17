@@ -64,6 +64,10 @@ body {
   color: var(--墨色);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  // CJK 标点 kerning（Chrome 123+ 默认支持，Safari/FF 降级）
+  text-spacing-trim: trim-start;
+  // 中英文自动间距（Baseline 2025）
+  text-autospace: normal;
 }
 
 // 正文：衬线优先
@@ -71,6 +75,7 @@ article {
   font-size: 1.0625rem; // 17px
   line-height: 1.85;
   color: var(--墨色);
+  max-width: 66ch; // Bringhurst 66字符理想行宽
 
   p {
     line-height: 1.85;
@@ -175,7 +180,7 @@ pre code {
 
 .callout {
   border-radius: var(--radius-md);
-  border-width: 1.5px;
+  border-width: 1px;
   border-left-width: 3px;
 }
 
@@ -247,7 +252,7 @@ a[href^="#"][class*="tag"] {
 
 hr {
   border: none;
-  border-top: 1.5px solid var(--线条);
+  border-top: 1px solid var(--线条);
   margin: 3.5rem 0;
 }
 
@@ -267,10 +272,10 @@ html {
 // --- 侧边栏 ---
 
 .sidebar.left {
-  border-right: 1.5px solid var(--线条);
+  border-right: 1px solid var(--线条);
   font-size: 0.95rem;
   color: var(--墨色);
-  padding-right: 2.5rem !important;
+  padding-right: 2rem !important;
 }
 
 [saved-theme="dark"] .sidebar.left {
@@ -332,8 +337,8 @@ html {
 .sidebar.right {
   font-size: 0.9rem;
   color: var(--墨色-soft);
-  border-left: 1.5px solid var(--线条);
-  padding-left: 2.5rem !important;
+  border-left: 1px solid var(--线条);
+  padding-left: 2rem !important;
 }
 
 .sidebar.right h3 {
@@ -343,6 +348,20 @@ html {
 }
 
 // --- 首页 Hero ---
+
+// 首页用 full-width 布局：隐藏侧栏，中间区撑满
+body[data-slug="index"] .sidebar.left,
+body[data-slug="index"] .sidebar.right {
+  display: none;
+}
+
+body[data-slug="index"] .page > #quartz-body {
+  grid-template-columns: auto;
+  grid-template-areas:
+    '"grid-header"'
+    '"grid-center"'
+    '"grid-footer"';
+}
 
 .hero {
   text-align: center;
@@ -394,7 +413,7 @@ html {
   gap: 0.6rem;
   padding: 2.2rem 2rem;
   min-width: 170px;
-  border: 1.5px solid var(--线条);
+  border: 1px solid var(--线条);
   border-radius: var(--radius-md);
   background: var(--纸色-card);
   color: var(--墨色);
@@ -445,7 +464,7 @@ html {
 
 .folder-content-list li {
   padding: 1.1rem 0;
-  border-bottom: 1.5px solid var(--线条);
+  border-bottom: 1px solid var(--线条);
 }
 
 .folder-content-list li:last-child {
@@ -487,7 +506,7 @@ html {
 footer {
   font-size: 0.85rem;
   color: var(--淡墨);
-  border-top: 1.5px solid var(--线条);
+  border-top: 1px solid var(--线条);
   padding-top: 2rem;
   margin-top: 3.5rem;
 }
