@@ -1145,9 +1145,17 @@ body:not([data-slug="index"]) .page-header {
     margin-top: 1.6rem;
   }
 
-  // 手机：隐藏次要右栏（规范允许；需压过 tablet 的 flex !important）
+  // 手机：右栏不隐藏，沿用 tablet/mobile 共用规则沉到正文之后；
+  // 全宽略紧，图谱高度略收，便于下滑阅读。
   body:not([data-slug="index"]) .sidebar.right {
-    display: none !important;
+    display: flex !important;
+    padding: 1.5rem 0 calc(2rem + env(safe-area-inset-bottom, 0px)) !important;
+    gap: 1.5rem;
+  }
+
+  body:not([data-slug="index"]) .sidebar.right .graph > .graph-outer {
+    min-height: 10rem;
+    height: 10rem;
   }
 }
 

@@ -21,10 +21,20 @@ test("tablet inner pages collapse to a topbar and one content column", () => {
   assert.match(styles, /border-right:\s*none/)
 })
 
-test("mobile inner pages hide the secondary graph sidebar", () => {
+test("mobile and tablet place secondary sidebar after the article, not beside it", () => {
+  // 触屏单列：右栏在 grid 中位于 center 之后
   assert.match(
     styles,
-    /body:not\(\[data-slug="index"\]\) \.sidebar\.right\s*\{[^}]*display:\s*none/s,
+    /grid-template-areas:[\s\S]*?"grid-sidebar-left"\s*"grid-center"\s*"grid-sidebar-right"/,
+  )
+  // 手机不再 display:none 掉右栏（图谱沉底可见）
+  assert.doesNotMatch(
+    styles,
+    /@media all and \(\$mobile\)[\s\S]*body:not\(\[data-slug="index"\]\) \.sidebar\.right\s*\{[^}]*display:\s*none\s*!important/s,
+  )
+  assert.match(
+    styles,
+    /body:not\(\[data-slug="index"\]\) \.sidebar\.right\s*\{[^}]*flex-direction:\s*column/s,
   )
 })
 
