@@ -26,7 +26,7 @@ configuration:
     colors:
       lightMode:
         light: "#faf6f1"
-        lightgray: "#e8e0d4"
+        lightgray: "#d8cdb8"
         gray: "#6b6358"
         darkgray: "#4a443c"
         dark: "#2a2620"
@@ -36,7 +36,7 @@ configuration:
         textHighlight: "#b8945a44"
       darkMode:
         light: "#1a1714"
-        lightgray: "#3a3228"
+        lightgray: "#4a3f30"
         gray: "#9a8e7e"
         darkgray: "#b8aa98"
         dark: "#e8e0d4"
@@ -127,6 +127,8 @@ plugins:
     enabled: true
   - source: github:quartz-community/folder-page
     enabled: true
+    options:
+      showFolderCount: false
   - source: github:quartz-community/tag-page
     enabled: true
   - source: github:quartz-community/explorer
@@ -157,11 +159,13 @@ plugins:
     layout:
       position: beforeBody
       priority: 10
+      condition: not-index
   - source: github:quartz-community/content-meta
     enabled: true
     layout:
       position: beforeBody
       priority: 20
+      condition: not-index
   - source: github:quartz-community/tag-list
     enabled: false
     layout:

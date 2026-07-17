@@ -1,36 +1,49 @@
 import { h } from "preact"
 
-function DhammaNav() {
+function DhammaNav(props) {
+  const fileData = props?.fileData ?? {}
+  const slug = fileData?.slug ?? ""
+  const isHome = slug === "index"
+
+  const navItems = [
+    { href: "./佛法修学", label: "佛法修学", match: "佛法修学", icon: [
+      h("path", { d: "M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z" }),
+      h("path", { d: "M12 6v8" })
+    ]},
+    { href: "./AI实践", label: "AI 实践", match: "AI实践", icon: [
+      h("rect", { x: "4", y: "6", width: "16", height: "12", rx: "2" }),
+      h("path", { d: "M8 10h8M8 14h5" }),
+      h("circle", { cx: "17", cy: "14", r: "0.5", fill: "currentColor" })
+    ]},
+    { href: "./关于", label: "关于", match: "关于", icon: [
+      h("circle", { cx: "12", cy: "12", r: "9" }),
+      h("path", { d: "M12 16v-4M12 8h.01" })
+    ]}
+  ]
+
   return h("nav", { class: "dhamma-nav" },
     h("ul", null,
-      h("li", null,
-        h("a", { href: "./佛法修学", class: "nav-item" },
-          h("svg", { class: "nav-icon", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round" },
-            h("path", { d: "M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z" }),
-            h("path", { d: "M12 6v8" })
-          ),
-          h("span", { class: "nav-label" }, "佛法修学")
+      navItems.map(item => {
+        const isActive = !isHome && slug.toLowerCase().startsWith(item.match.toLowerCase())
+        return h("li", null,
+          h("a", {
+            href: item.href,
+            class: `nav-item${isActive ? " active" : ""}`,
+            "aria-current": isActive ? "page" : undefined
+          },
+            h("svg", {
+              class: "nav-icon",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              "stroke-width": "1.5",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }, ...item.icon),
+            h("span", { class: "nav-label" }, item.label)
+          )
         )
-      ),
-      h("li", null,
-        h("a", { href: "./AI实践", class: "nav-item" },
-          h("svg", { class: "nav-icon", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round" },
-            h("rect", { x: "4", y: "6", width: "16", height: "12", rx: "2" }),
-            h("path", { d: "M8 10h8M8 14h5" }),
-            h("circle", { cx: "17", cy: "14", r: "0.5", fill: "currentColor" })
-          ),
-          h("span", { class: "nav-label" }, "AI 实践")
-        )
-      ),
-      h("li", null,
-        h("a", { href: "./关于", class: "nav-item" },
-          h("svg", { class: "nav-icon", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round", "stroke-linejoin": "round" },
-            h("circle", { cx: "12", cy: "12", r: "9" }),
-            h("path", { d: "M12 16v-4M12 8h.01" })
-          ),
-          h("span", { class: "nav-label" }, "关于")
-        )
-      )
+      })
     )
   )
 }
@@ -52,19 +65,26 @@ DhammaNav.css = `
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.6rem 0.8rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 6px;
   font-weight: 500;
   font-size: 1rem;
-  color: var(--dark);
+  color: var(--墨色);
   text-decoration: none;
   background: transparent;
-  transition: background 0.2s ease, color 0.2s ease;
+  border-left: 2.5px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   line-height: 1.5;
 }
 .dhamma-nav .nav-item:hover {
-  background: var(--highlight);
-  color: var(--tertiary);
+  background: var(--暖金-bg);
+  color: var(--暖金);
+}
+.dhamma-nav .nav-item.active {
+  background: var(--暖金-bg);
+  color: var(--暖金);
+  border-left-color: var(--暖金);
+  font-weight: 600;
 }
 .dhamma-nav .nav-icon {
   width: 22px;
@@ -73,7 +93,8 @@ DhammaNav.css = `
   opacity: 0.85;
   stroke-width: 2;
 }
-.dhamma-nav .nav-item:hover .nav-icon {
+.dhamma-nav .nav-item:hover .nav-icon,
+.dhamma-nav .nav-item.active .nav-icon {
   opacity: 1;
 }
 `

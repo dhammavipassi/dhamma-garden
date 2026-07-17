@@ -5,7 +5,7 @@ description: 以法为道，以器载智，以观为术
 
 <div class="hero">
 
-# DhammaAI
+<h1>DhammaAI</h1>
 
 <p class="hero-subtitle">Dhammadassī · 见法者</p>
 

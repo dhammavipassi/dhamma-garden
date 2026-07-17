@@ -15,7 +15,7 @@
   --墨色: #2a2620;
   --淡墨: #6b6358;
   --暖金: #b8945a;
-  --线条: #e8e0d4;
+  --线条: #d8cdb8;
 
   // 衍生色
   --纸色-card: #fefcf8;
@@ -47,7 +47,7 @@
   --墨色: #e8e0d4;
   --淡墨: #9a8e7e;
   --暖金: #c4a06a;
-  --线条: #3a3228;
+  --线条: #4a3f30;
 
   --纸色-card: #241f1a;
   --纸色-hover: #2a2520;
@@ -135,10 +135,9 @@ a:hover {
 
 blockquote {
   border-left: 3px solid var(--暖金);
-  padding-left: 1.2rem;
-  margin: 1.5rem 0;
+  padding: 0.8rem 1.5rem;
+  margin: 1.8rem 0;
   color: var(--墨色-soft);
-  font-style: italic;
   background: transparent;
   border-radius: 0;
 }
@@ -146,6 +145,7 @@ blockquote {
 blockquote p {
   font-size: 1.05rem;
   line-height: 1.8;
+  margin: 0.5rem 0;
 }
 
 // --- 代码块 ---
@@ -153,7 +153,7 @@ blockquote p {
 pre {
   border-radius: var(--radius-md);
   font-size: 0.9rem;
-  padding: 1.2rem 1.5rem;
+  padding: 1.5rem 1.8rem;
   background: var(--纸色-hover);
   border: 1px solid var(--线条);
 }
@@ -175,7 +175,7 @@ pre code {
 
 .callout {
   border-radius: var(--radius-md);
-  border-width: 1px;
+  border-width: 1.5px;
   border-left-width: 3px;
 }
 
@@ -247,8 +247,8 @@ a[href^="#"][class*="tag"] {
 
 hr {
   border: none;
-  border-top: 1px solid var(--线条);
-  margin: 3rem 0;
+  border-top: 1.5px solid var(--线条);
+  margin: 3.5rem 0;
 }
 
 // --- 选中文本 ---
@@ -267,9 +267,10 @@ html {
 // --- 侧边栏 ---
 
 .sidebar.left {
-  border-right: 1px solid var(--线条);
+  border-right: 1.5px solid var(--线条);
   font-size: 0.95rem;
   color: var(--墨色);
+  padding-right: 2.5rem !important;
 }
 
 [saved-theme="dark"] .sidebar.left {
@@ -331,6 +332,8 @@ html {
 .sidebar.right {
   font-size: 0.9rem;
   color: var(--墨色-soft);
+  border-left: 1.5px solid var(--线条);
+  padding-left: 2.5rem !important;
 }
 
 .sidebar.right h3 {
@@ -343,7 +346,7 @@ html {
 
 .hero {
   text-align: center;
-  padding: 5rem 1.5rem 2rem;
+  padding: 2rem 1.5rem 2rem;
   max-width: 680px;
   margin: 0 auto;
 }
@@ -351,7 +354,7 @@ html {
 .hero h1 {
   font-size: 3.2rem;
   font-weight: $semiBoldWeight;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.3rem;
   color: var(--墨色);
 }
@@ -388,10 +391,10 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1.8rem 1.5rem;
-  min-width: 160px;
-  border: 1px solid var(--线条);
+  gap: 0.6rem;
+  padding: 2.2rem 2rem;
+  min-width: 170px;
+  border: 1.5px solid var(--线条);
   border-radius: var(--radius-md);
   background: var(--纸色-card);
   color: var(--墨色);
@@ -441,8 +444,8 @@ html {
 }
 
 .folder-content-list li {
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--线条);
+  padding: 1.1rem 0;
+  border-bottom: 1.5px solid var(--线条);
 }
 
 .folder-content-list li:last-child {
@@ -484,9 +487,9 @@ html {
 footer {
   font-size: 0.85rem;
   color: var(--淡墨);
-  border-top: 1px solid var(--线条);
-  padding-top: 1.5rem;
-  margin-top: 3rem;
+  border-top: 1.5px solid var(--线条);
+  padding-top: 2rem;
+  margin-top: 3.5rem;
 }
 
 // --- 响应式 ---
