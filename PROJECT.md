@@ -4,11 +4,11 @@
 
 完整中控（状态 / 边界 / 三层互通协议）在：
 
-`~/Github_projects/obsidian-projects/Active/DhammaAI/AGENT.md`
+`~/Github_projects/obsidian-projects/DhammaAI/AGENT.md`
 
 Obsidian 入口（软链到同一中控）：
 
-`~/Obsidian/1_Projects/Active/DhammaAI.md`
+`~/Obsidian/1_Projects/DhammaAI.md`
 
 工程验收 SSOT 仍是本仓 [AGENTS.md](./AGENTS.md)。
 
