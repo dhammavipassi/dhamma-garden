@@ -1,5 +1,5 @@
 import { i18n } from "../i18n"
-import { FullSlug, getFileExtension, joinSegments, pathToRoot } from "../util/path"
+import { FullSlug, getFileExtension, pathToRoot } from "../util/path"
 import { CSSResourceToStyleElement, JSResourceToScriptElement } from "../util/resources"
 import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
@@ -28,9 +28,13 @@ export default (() => {
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = resolveFaviconPath(baseDir, ctx.hashedResourceNames)
 
-    // Url of current page
-    const socialUrl =
-      fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+    // 当前页的干净规范 URL：首页→站点根，文件夹索引页→去掉 /index 后带尾斜杠，
+    // 与站点实际服务的 clean URL 一致，避免 canonical 指向 /index 别名而分散排名信号。
+    const cleanSlug = String(fileData.slug ?? "index").replace(/(^|\/)index$/, "")
+    const canonicalUrl =
+      fileData.slug === "404" || cleanSlug === ""
+        ? url.toString()
+        : `${url.toString()}${cleanSlug}/`
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
@@ -61,11 +65,15 @@ export default (() => {
           </>
         )}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#faf6f1" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1a1714" media="(prefers-color-scheme: dark)" />
 
         <meta name="og:site_name" content={cfg.pageTitle}></meta>
         <meta property="og:title" content={title} />
         <meta property="og:type" content="website" />
+        {cfg.locale && <meta property="og:locale" content={cfg.locale.replace("-", "_")} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
@@ -86,9 +94,10 @@ export default (() => {
 
         {cfg.baseUrl && (
           <>
+            <link rel="canonical" href={canonicalUrl} />
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
-            <meta property="og:url" content={socialUrl}></meta>
-            <meta property="twitter:url" content={socialUrl}></meta>
+            <meta property="og:url" content={canonicalUrl}></meta>
+            <meta property="twitter:url" content={canonicalUrl}></meta>
           </>
         )}
 
@@ -107,6 +116,22 @@ export default (() => {
             return resource
           }
         })}
+        {fileData.slug === "index" && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: cfg.pageTitle,
+                url: url.toString(),
+                description,
+                inLanguage: cfg.locale,
+                author: { "@type": "Person", name: "Dhammadassī", alternateName: "见法者" },
+              }),
+            }}
+          />
+        )}
       </head>
     )
   }
