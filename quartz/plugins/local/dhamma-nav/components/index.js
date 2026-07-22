@@ -99,6 +99,72 @@ function DhammaNav(props) {
   )
 }
 
+// 阅读进度条 + TOC scrollspy + skip-to-content
+DhammaNav.afterDOMLoaded = `
+(function () {
+  var bar = document.createElement("div");
+  bar.className = "reading-progress";
+  bar.setAttribute("aria-hidden", "true");
+  bar.innerHTML = '<div class="reading-progress-fill"></div>';
+  document.body.appendChild(bar);
+  var fill = bar.querySelector(".reading-progress-fill");
+
+  var skip = document.createElement("a");
+  skip.className = "skip-to-content";
+  skip.href = "#quartz-body";
+  skip.textContent = "跳到正文";
+  document.body.appendChild(skip);
+
+  function updateProgress() {
+    var h = document.documentElement;
+    var st = h.scrollTop || document.body.scrollTop;
+    var sh = h.scrollHeight - h.clientHeight;
+    var p = sh > 0 ? (st / sh) * 100 : 0;
+    fill.style.width = p + "%";
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(function () {
+        updateProgress();
+        updateScrollspy();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  function updateScrollspy() {
+    var headings = document.querySelectorAll("article > h2, article > h3");
+    if (!headings.length) return;
+    var tocLinks = document.querySelectorAll(".sidebar.right .toc a, #toc a");
+    if (!tocLinks.length) return;
+    var scrollY = window.scrollY + 120;
+    var current = null;
+    headings.forEach(function (h) {
+      if (h.offsetTop <= scrollY) current = h;
+    });
+    tocLinks.forEach(function (link) {
+      link.parentElement.classList.remove("active");
+      if (current && link.getAttribute("href") === "#" + current.id) {
+        link.parentElement.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  document.addEventListener("nav", function () {
+    requestAnimationFrame(function () {
+      updateProgress();
+      updateScrollspy();
+    });
+  });
+  updateProgress();
+})();
+`
+
 // 桌面竖栏基础样式；横顶栏形态由 custom.scss 统一覆盖
 DhammaNav.css = `
 .dhamma-nav {

@@ -20,8 +20,14 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Noto Serif SC
-      body: Noto Serif SC
+      header:
+        name: Noto Serif SC
+        weights: [400, 600]
+        includeItalic: false
+      body:
+        name: Noto Serif SC
+        weights: [400, 600]
+        includeItalic: false
       code: JetBrains Mono
     colors:
       lightMode:
@@ -104,7 +110,7 @@ plugins:
     enabled: false
     order: 92
   - source: github:quartz-community/fonts
-    enabled: true
+    enabled: false
   - source: github:quartz-community/remove-draft
     enabled: true
   - source: github:quartz-community/explicit-publish
