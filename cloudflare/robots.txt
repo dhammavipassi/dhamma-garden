@@ -1,0 +1,6 @@
+# DhammaAI · https://guanzhang.dhammaai.com
+# 部署时由 deploy.yml 拷入 public/ 根目录，服务于 /robots.txt。
+User-agent: *
+Allow: /
+
+Sitemap: https://guanzhang.dhammaai.com/sitemap.xml

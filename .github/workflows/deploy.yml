@@ -8,6 +8,11 @@ on:
 permissions:
   contents: read
 
+# 同一分支只保留最新一次部署，取消被取代的旧运行
+concurrency:
+  group: pages-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -50,6 +55,10 @@ jobs:
 
       - name: Build Quartz
         run: npx quartz build
+
+      # 把 Cloudflare 安全/缓存响应头与 robots.txt 注入构建产物根目录
+      - name: Add Cloudflare headers and robots.txt
+        run: cp cloudflare/_headers cloudflare/robots.txt public/
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
