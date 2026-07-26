@@ -1201,6 +1201,12 @@ body:not([data-slug="index"]) .page-header {
     margin: 2.5rem auto 1.5rem;
   }
 
+  // Quartz DefaultFrame 自动在正文末尾加 <hr/>，触屏端右栏 border-top 与之平行成双线
+  // 隐藏正文末尾的 hr，保留右栏 border-top 作为统一分隔线
+  body:not([data-slug="index"]) .center > hr:last-of-type {
+    display: none;
+  }
+
   // 右栏下沉：纵向堆叠，保留结构位
   body:not([data-slug="index"]) .sidebar.right {
     display: flex !important;

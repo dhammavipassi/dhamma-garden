@@ -97,6 +97,15 @@ test("touch layouts do not double-line above the graph", () => {
   )
 })
 
+test("touch layouts hide the DefaultFrame hr that doubles the sidebar border-top", () => {
+  // Quartz DefaultFrame 自动在正文末尾加 <hr/>，触屏端右栏 border-top 与之平行 → 双线
+  // 触屏端隐藏 .center > hr:last-of-type，保留右栏 border-top 作为统一分隔线
+  assert.match(
+    styles,
+    /@media all and \(\$tablet\)[\s\S]*?\.center\s*>\s*hr:last-of-type\s*\{[^}]*display:\s*none/s,
+  )
+})
+
 test("body typography selectors survive the .markdown-rendered wrapper", () => {
   // Quartz 把正文包成 <article><div class="markdown-rendered">…</div></article>，
   // 因此 `article > hX` 永远匹配不到正文标题（实测 h2 仍是 base.scss 的 1.4rem）。
