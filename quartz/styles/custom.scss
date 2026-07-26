@@ -24,6 +24,9 @@
   --墨色-light: #6b6358;
   --暖金-soft: #d4b888;
   --暖金-bg: rgba(184, 148, 90, 0.06);
+  // 正文链接专用：品牌暖金在纸色上只有 2.63:1，达不到 WCAG AA 正文 4.5:1。
+  // 压低明度保住色相，实测 4.81:1。品牌 --暖金 仍用于非文字的 UI 元素（≥3:1 即可）。
+  --暖金-链接: #86683c;
 
   // 间距
   --sp-xs: 0.5rem;
@@ -79,6 +82,8 @@
   --墨色-light: #a89c8c;
   --暖金-soft: #8a7048;
   --暖金-bg: rgba(196, 160, 106, 0.08);
+  // 暗底上 #c4a06a 实测 7.30:1，已过 AA，链接沿用品牌色
+  --暖金-链接: #c4a06a;
 
   --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.22);
   --shadow-card-hover: 0 8px 28px rgba(0, 0, 0, 0.35);
@@ -108,6 +113,19 @@ article {
   p + p {
     margin-top: 1.3em;
   }
+
+  // base.scss 的 li{line-height:1.6rem} 是固定 rem，会让中文列表比正文紧 20%
+  li {
+    line-height: 1.85;
+  }
+
+  :is(ul, ol) {
+    padding-inline-start: 1.6rem;
+  }
+
+  li + li {
+    margin-top: 0.35em;
+  }
 }
 
 // 内页统一版心：folder / content 起点一致
@@ -131,25 +149,30 @@ h6 {
   text-wrap: pretty;
 }
 
-article > h1 {
+// Quartz 把正文包成 <article><div class="markdown-rendered">…</div></article>，
+// 所以标题不是 article 的直接子代；用后代选择器才能真正接管上游 base.scss 的字号。
+article :is(h1) {
   font-size: 2rem;
   margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
-article > h2 {
+article :is(h2) {
   font-size: 1.5rem;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   letter-spacing: -0.005em;
-  scroll-margin-top: 2rem;
 }
 
-article > h3 {
+article :is(h3) {
   font-size: 1.25rem;
   margin-top: 2rem;
   margin-bottom: 0.8rem;
-  scroll-margin-top: 2rem;
+}
+
+// 锚点跳转留出顶栏与呼吸（html 的 scroll-padding-top 之外再兜一层）
+article :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 1.5rem;
 }
 
 // 中文无真正斜体，禁用合成斜体避免字形劣化
@@ -164,7 +187,8 @@ a {
   transition:
     color var(--transition-fast),
     border-color var(--transition-fast);
-  color: var(--暖金);
+  // 文字链接走高对比 token；品牌 --暖金 留给图谱/进度条/边框等非文字元素
+  color: var(--暖金-链接);
   font-weight: $normalWeight;
 }
 
@@ -987,12 +1011,18 @@ body:not([data-slug="index"]) .page-header {
     line-height: 1.75;
   }
 
-  article > h1 {
+  article :is(h1) {
     font-size: 1.6rem;
   }
 
-  article > h2 {
+  article :is(h2) {
     font-size: 1.3rem;
+    margin-top: 2rem;
+  }
+
+  article :is(h3) {
+    font-size: 1.15rem;
+    margin-top: 1.6rem;
   }
 
   body[data-slug="index"] .page > #quartz-body {
@@ -1294,14 +1324,6 @@ body:not([data-slug="index"]) .page-header {
   animation: hero-fade-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
 }
 
-// --- 性能：离屏内容延迟渲染 ---
-
-article > h2 + *,
-article > h3 + * {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 1em;
-}
-
 // --- 暗色模式辅助元素对比度 ---
 
 [saved-theme="dark"] .sidebar.right h3 {
@@ -1341,23 +1363,6 @@ article table tr:last-child td {
 
 article table tr:hover td {
   background: var(--暖金-bg);
-}
-
-// 引用块精修
-article blockquote {
-  position: relative;
-}
-
-article blockquote::before {
-  content: "";
-  position: absolute;
-  left: -1.5rem;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--暖金);
-  border-radius: var(--radius-sm);
-  opacity: 0.6;
 }
 
 // 代码块精修

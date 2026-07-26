@@ -87,6 +87,57 @@ test("graph has a single frame on graph-outer, not a double border", () => {
   )
 })
 
+test("body typography selectors survive the .markdown-rendered wrapper", () => {
+  // Quartz 把正文包成 <article><div class="markdown-rendered">…</div></article>，
+  // 因此 `article > hX` 永远匹配不到正文标题（实测 h2 仍是 base.scss 的 1.4rem）。
+  assert.doesNotMatch(
+    styles,
+    /article\s*>\s*h[1-6]/,
+    "正文标题不得用 article 的直接子代选择器，会被 .markdown-rendered 断开",
+  )
+  // 标题字号必须由本文件用后代选择器接管
+  assert.match(styles, /article\s+:is\(h[1-6]/)
+})
+
+test("blockquote has exactly one accent rule, and it stays inside the measure", () => {
+  // border-left 与 ::before 曾同时存在 → 双竖线，且 ::before 的 left:-1.5rem 在手机端跑出屏幕
+  assert.doesNotMatch(
+    styles,
+    /article blockquote::before\s*\{[^}]*background:\s*var\(--暖金\)/s,
+    "引用块不得再用 ::before 画第二条竖线",
+  )
+})
+
+test("content-visibility is not applied to prose right after headings", () => {
+  // contain-intrinsic-size 会让长段落初始高度塌缩造成 CLS，且干扰 scrollspy 的 offsetTop
+  assert.doesNotMatch(styles, /h2\s*\+\s*\*,[\s\S]{0,40}h3\s*\+\s*\*\s*\{[^}]*content-visibility/s)
+})
+
+test("prose links meet WCAG AA on the light paper background", () => {
+  // #b8945a on #faf6f1 只有 2.63:1；正文链接需要独立的深色 token
+  assert.match(styles, /--暖金-链接:/)
+  const lightToken = styles.match(/--暖金-链接:\s*(#[0-9a-fA-F]{6})/)
+  assert.ok(lightToken, "亮色模式必须定义 --暖金-链接")
+  const lum = (hex) => {
+    const c = hex
+      .replace("#", "")
+      .match(/../g)
+      .map((x) => parseInt(x, 16) / 255)
+      .map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)))
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+  }
+  const paper = lum("#faf6f1")
+  const link = lum(lightToken[1])
+  const ratio = (Math.max(paper, link) + 0.05) / (Math.min(paper, link) + 0.05)
+  assert.ok(ratio >= 4.5, `正文链接对比度 ${ratio.toFixed(2)} < 4.5 (WCAG AA)`)
+})
+
+test("list items share the prose rhythm instead of the upstream 1.6rem", () => {
+  // base.scss 的 li{line-height:1.6rem} 会让中文列表比正文紧 20%
+  // （SCSS 里以 article 嵌套块的形式覆盖）
+  assert.match(styles, /\bli\s*\{\s*line-height:\s*1\.85/)
+})
+
 test("project rules require desktop, iPad, and mobile acceptance", () => {
   const rules = fs.readFileSync("AGENTS.md", "utf8")
 
