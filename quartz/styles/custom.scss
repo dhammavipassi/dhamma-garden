@@ -180,6 +180,18 @@ article :is(h3) {
   margin-bottom: 0.8rem;
 }
 
+article :is(h4) {
+  font-size: 1.1rem;
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+
+article :is(h5, h6) {
+  font-size: 1rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
 // 锚点跳转留出顶栏与呼吸（html 的 scroll-padding-top 之外再兜一层）
 article :is(h1, h2, h3, h4, h5, h6) {
   scroll-margin-top: 1.5rem;
@@ -210,7 +222,7 @@ a:focus-visible,
 button:focus-visible,
 .search-button:focus-visible,
 .darkmode:focus-visible,
-.reader-mode:focus-visible,
+.readermode:focus-visible,
 .dhamma-nav .nav-item:focus-visible,
 .entry-card:focus-visible {
   outline: 2px solid var(--暖金);
@@ -424,7 +436,7 @@ html {
   align-items: center;
 }
 
-.sidebar.left .reader-mode svg {
+.sidebar.left .readermode svg {
   stroke: var(--墨色-soft);
   stroke-width: 2px;
   width: 22px;
@@ -432,7 +444,7 @@ html {
   transition: stroke var(--transition);
 }
 
-.sidebar.left .reader-mode:hover svg {
+.sidebar.left .readermode:hover svg {
   stroke: var(--暖金);
 }
 
@@ -1368,11 +1380,11 @@ body:not([data-slug="index"]) .page-header {
 // --- 暗色模式辅助元素对比度 ---
 
 [saved-theme="dark"] .sidebar.right h3 {
-  color: #d4c8b8;
+  color: var(--墨色-soft);
 }
 
 [saved-theme="dark"] .content-meta {
-  color: #a89c8c;
+  color: var(--淡墨);
 }
 
 // --- 内容元素精修 ---

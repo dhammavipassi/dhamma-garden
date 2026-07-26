@@ -159,6 +159,15 @@ test("touch-targets mixin covers upstream readermode (no hyphen), not reader-mod
   )
 })
 
+test("no .reader-mode (with hyphen) selectors remain in code lines", () => {
+  // 之前有 3 处用 .reader-mode（有连字符）：focus-visible、svg、hover
+  // 全部应改为 .readermode（无连字符），否则样式失效
+  // 注释行里的 .reader-mode 是说明性文字，不算违规
+  const codeLines = styles.split("\n").filter((l) => !l.trim().startsWith("//"))
+  const offender = codeLines.find((l) => /\.reader-mode(?!\s)/.test(l))
+  assert.ok(!offender, `发现 .reader-mode（有连字符）残留: ${offender}`)
+})
+
 test("touch-targets mixin covers the global-graph-icon button", () => {
   // 上游 .global-graph-icon 是 24×24 的按钮，触屏端需要 ≥44px
   assert.match(styles, /\.global-graph-icon/)

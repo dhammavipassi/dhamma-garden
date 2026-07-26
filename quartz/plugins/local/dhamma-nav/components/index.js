@@ -143,7 +143,9 @@ DhammaNav.afterDOMLoaded = `
     var scrollY = window.scrollY + 120;
     var current = null;
     headings.forEach(function (h) {
-      if (h.offsetTop <= scrollY) current = h;
+      // offsetTop 是相对 offsetParent，嵌套在定位元素里会偏；
+      // getBoundingClientRect().top + scrollY 是相对文档顶部的绝对位置
+      if (h.getBoundingClientRect().top + window.scrollY <= scrollY) current = h;
     });
     tocLinks.forEach(function (link) {
       link.parentElement.classList.remove("active");
