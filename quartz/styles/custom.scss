@@ -1199,6 +1199,11 @@ body:not([data-slug="index"]) .page-header {
     gap: 2rem;
   }
 
+  // 触屏端右栏 border-top 已是下沉分隔线，graph-outer 的上边框与之平行会成双线
+  body:not([data-slug="index"]) .sidebar.right .graph > .graph-outer {
+    border-top: none;
+  }
+
   body:not([data-slug="index"]) .sidebar.right > * {
     flex: none;
     max-height: none;

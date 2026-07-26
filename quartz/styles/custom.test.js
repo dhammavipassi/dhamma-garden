@@ -87,6 +87,16 @@ test("graph has a single frame on graph-outer, not a double border", () => {
   )
 })
 
+test("touch layouts do not double-line above the graph", () => {
+  // 触屏端 .sidebar.right 有 border-top 作为下沉分隔线，
+  // graph-outer 的上边框与之平行 → 视觉双线。
+  // 触屏端 graph-outer 去掉上边框，保留左右下三边。
+  assert.match(
+    styles,
+    /@media all and \(\$tablet\)[\s\S]*?graph-outer\s*\{[^}]*border-top:\s*none/s,
+  )
+})
+
 test("body typography selectors survive the .markdown-rendered wrapper", () => {
   // Quartz 把正文包成 <article><div class="markdown-rendered">…</div></article>，
   // 因此 `article > hX` 永远匹配不到正文标题（实测 h2 仍是 base.scss 的 1.4rem）。
