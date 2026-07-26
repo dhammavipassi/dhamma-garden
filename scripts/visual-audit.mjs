@@ -93,15 +93,12 @@ function measure(TOUCH_MIN) {
     out.offenders = out.offenders.slice(0, 8)
   }
 
-  // 2) 触控目标尺寸（可点击元素）
+  // 2) 触控目标尺寸（主要链接与按钮，不含内联文本链接和面包屑）
   const clickable =
-    "a, button, [role='button'], input[type='checkbox'], .search-button, .darkmode, .reader-mode"
+    "button, [role='button'], input[type='checkbox'], .search-button, .darkmode, .readermode, .global-graph-icon, .nav-item, .page-title a, .skip-to-content, .entry-card"
   for (const el of document.querySelectorAll(clickable)) {
     if (!vis(el)) continue
     const r = el.getBoundingClientRect()
-    // 正文内联链接不计入（无法也不应撑到 44px）
-    if (el.closest("article") && el.tagName === "A" && getComputedStyle(el).display === "inline")
-      continue
     if (r.width < TOUCH_MIN || r.height < TOUCH_MIN) {
       out.touch.push({
         sel:
