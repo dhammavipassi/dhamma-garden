@@ -136,7 +136,7 @@ DhammaNav.afterDOMLoaded = `
   }
 
   function updateScrollspy() {
-    var headings = document.querySelectorAll("article > h2, article > h3");
+    var headings = document.querySelectorAll("article h2, article h3");
     if (!headings.length) return;
     var tocLinks = document.querySelectorAll(".sidebar.right .toc a, #toc a");
     if (!tocLinks.length) return;

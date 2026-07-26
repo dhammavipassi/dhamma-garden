@@ -31,6 +31,22 @@ test("custom styles do not collapse the desktop right-sidebar track", () => {
   assert.doesNotMatch(styles, /\.sidebar\.right:not\(:has\(\*\)\)/)
 })
 
+test("scrollspy uses descendant selector, not article > direct child", () => {
+  // Quartz 把正文包成 <article><div class="markdown-rendered">…</div></article>，
+  // article > h2 永远匹配不到正文标题，TOC 高亮从未工作过
+  const src = fs.readFileSync("quartz/plugins/local/dhamma-nav/components/index.js", "utf8")
+  assert.doesNotMatch(
+    src,
+    /querySelectorAll\(["']article\s*>\s*h/,
+    "scrollspy 不得用 article > hX 直接子选择器",
+  )
+  assert.match(
+    src,
+    /querySelectorAll\(["']article\s+h[23]/,
+    "scrollspy 必须用后代选择器 article hX",
+  )
+})
+
 test("inner center fills its grid track regardless of content length", () => {
   const styles = fs.readFileSync("quartz/styles/custom.scss", "utf8")
   const centerRule = styles.match(

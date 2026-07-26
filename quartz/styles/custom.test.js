@@ -138,6 +138,30 @@ test("list items share the prose rhythm instead of the upstream 1.6rem", () => {
   assert.match(styles, /\bli\s*\{\s*line-height:\s*1\.85/)
 })
 
+test("touch-targets mixin covers upstream readermode (no hyphen), not reader-mode", () => {
+  // 上游 Quartz 的 class 是 .readermode（无连字符），不是 .reader-mode
+  // 如果 mixin 用了 .reader-mode，44px 规则永远不生效
+  assert.match(styles, /\.readermode/)
+  assert.doesNotMatch(
+    styles,
+    /:is\(\.darkmode,\s*\.reader-mode\)/,
+    "touch-targets 不得用 .reader-mode（有连字符），上游实际 class 是 .readermode",
+  )
+})
+
+test("touch-targets mixin covers the global-graph-icon button", () => {
+  // 上游 .global-graph-icon 是 24×24 的按钮，触屏端需要 ≥44px
+  assert.match(styles, /\.global-graph-icon/)
+})
+
+test("skip-to-content link meets 44px touch target", () => {
+  // skip link padding 0.6rem 不足以达 44px
+  const m = styles.match(/\.skip-to-content\s*\{[^}]*padding:\s*([^;]+)/)
+  assert.ok(m, "skip-to-content 必须有 padding 规则")
+  // 0.7rem × 2 + line-height ≈ 44px
+  assert.match(styles, /\.skip-to-content\s*\{[^}]*min-height:\s*var\(--touch-target\)/)
+})
+
 test("project rules require desktop, iPad, and mobile acceptance", () => {
   const rules = fs.readFileSync("AGENTS.md", "utf8")
 

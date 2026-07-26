@@ -607,7 +607,8 @@ html {
     height: var(--touch-target);
   }
 
-  :is(.darkmode, .reader-mode) {
+  // 上游 Quartz 的 class 是 .readermode（无连字符），不是 .reader-mode
+  :is(.darkmode, .readermode) {
     min-width: var(--touch-target);
     min-height: var(--touch-target);
     display: grid;
@@ -1133,6 +1134,14 @@ body:not([data-slug="index"]) .page-header {
     @include touch-targets;
   }
 
+  // .global-graph-icon 在右栏，不能嵌套在 .sidebar.left 里
+  .global-graph-icon {
+    min-width: var(--touch-target);
+    min-height: var(--touch-target);
+    display: grid;
+    place-items: center;
+  }
+
   body[data-slug="index"] .sidebar.left .search-button,
   body:not([data-slug="index"]) .sidebar.left .search-button {
     height: var(--touch-target);
@@ -1260,12 +1269,15 @@ body:not([data-slug="index"]) .page-header {
   top: -100%;
   left: 1rem;
   z-index: 10000;
-  padding: 0.6rem 1.2rem;
+  min-height: var(--touch-target);
+  padding: 0.7rem 1.2rem;
   background: var(--墨色);
   color: var(--纸色);
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   text-decoration: none;
+  display: flex;
+  align-items: center;
   transition: top var(--transition-fast);
 }
 
