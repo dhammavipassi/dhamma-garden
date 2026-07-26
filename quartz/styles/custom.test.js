@@ -88,18 +88,23 @@ test("graph has a single frame on graph-outer, not a double border", () => {
 })
 
 test("touch layouts do not double-line above the graph", () => {
-  // 触屏端 .sidebar.right 有 border-top 作为下沉分隔线，
-  // graph-outer 的上边框与之平行 → 视觉双线。
-  // 触屏端 graph-outer 去掉上边框，保留左右下三边。
+  // 触屏端右栏用 margin-top 与正文分隔，不用 border-top
+  // graph-outer 保留四边边框（组件视觉完整性）
+  // 两者不再平行成双线
   assert.match(
+    styles,
+    /@media all and \(\$tablet\)[\s\S]*?\.sidebar\.right\s*\{[^}]*border-top:\s*none[^}]*margin-top/s,
+  )
+  // 触屏端不得再覆盖 graph-outer 的 border-top
+  assert.doesNotMatch(
     styles,
     /@media all and \(\$tablet\)[\s\S]*?graph-outer\s*\{[^}]*border-top:\s*none/s,
   )
 })
 
-test("touch layouts hide the DefaultFrame hr that doubles the sidebar border-top", () => {
-  // Quartz DefaultFrame 自动在正文末尾加 <hr/>，触屏端右栏 border-top 与之平行 → 双线
-  // 触屏端隐藏 .center > hr:last-of-type，保留右栏 border-top 作为统一分隔线
+test("touch layouts hide the DefaultFrame hr that doubles the separator", () => {
+  // Quartz DefaultFrame 自动在正文末尾加 <hr/>，触屏端右栏 margin-top 已分隔正文
+  // hr 仍是多余线条，隐藏它保持视觉干净
   assert.match(
     styles,
     /@media all and \(\$tablet\)[\s\S]*?\.center\s*>\s*hr:last-of-type\s*\{[^}]*display:\s*none/s,

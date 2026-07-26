@@ -1193,9 +1193,8 @@ body:not([data-slug="index"]) .page-header {
     margin-inline: auto;
   }
 
-  body:not([data-slug="index"]) .page-header {
-    margin-top: 2.25rem;
-  }
+  // 上游 mobile 端 page-header margin-top 已是 0，不再额外加间距
+  // 让正文标题紧跟顶栏，避免顶部大片空白
 
   body:not([data-slug="index"]) .center > hr {
     margin: 2.5rem auto 1.5rem;
@@ -1208,18 +1207,15 @@ body:not([data-slug="index"]) .page-header {
   }
 
   // 右栏下沉：纵向堆叠，保留结构位
+  // 用 margin-top 与正文分隔，不用 border-top（避免与 graph-outer 上边框成双线）
   body:not([data-slug="index"]) .sidebar.right {
     display: flex !important;
     flex-direction: column;
     border-left: none;
-    border-top: 1px solid var(--线条);
-    padding: 1.75rem 0 2.25rem !important;
-    gap: 2rem;
-  }
-
-  // 触屏端右栏 border-top 已是下沉分隔线，graph-outer 的上边框与之平行会成双线
-  body:not([data-slug="index"]) .sidebar.right .graph > .graph-outer {
     border-top: none;
+    margin-top: 2.5rem;
+    padding: 0 0 2.25rem !important;
+    gap: 2rem;
   }
 
   body:not([data-slug="index"]) .sidebar.right > * {
@@ -1240,9 +1236,7 @@ body:not([data-slug="index"]) .page-header {
     @include topbar-mobile-stack;
   }
 
-  body:not([data-slug="index"]) .page-header {
-    margin-top: 1.6rem;
-  }
+  // 上游 mobile 端 page-header margin-top 已是 0，不再覆盖
 
   // 手机：右栏不隐藏，沿用 tablet/mobile 共用规则沉到正文之后；
   // 全宽略紧，图谱高度略收，便于下滑阅读。
