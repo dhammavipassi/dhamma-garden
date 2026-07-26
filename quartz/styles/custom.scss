@@ -697,6 +697,12 @@ body[data-slug="index"] article {
   font-weight: $semiBoldWeight;
 }
 
+// Quartz 给所有标题自动生成锚点链接图标（<a class="internal-link" href="#id">）
+// 在 hero 装饰标题里这个图标占 22px 参与居中，导致文字偏左；隐藏它让文字真正居中
+.hero-mark .internal-link {
+  display: none;
+}
+
 .hero-subtitle {
   font-size: 0.86rem;
   color: var(--墨色-light);

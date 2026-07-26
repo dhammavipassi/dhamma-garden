@@ -162,6 +162,16 @@ test("skip-to-content link meets 44px touch target", () => {
   assert.match(styles, /\.skip-to-content\s*\{[^}]*min-height:\s*var\(--touch-target\)/)
 })
 
+test("hero-mark hides the Quartz anchor link icon for true centering", () => {
+  // Quartz 给所有标题自动生成锚点链接图标（<a class="internal-link" href="#id">）
+  // 在 hero 装饰标题里这个图标占 22px 参与居中，导致文字偏左
+  assert.match(
+    styles,
+    /\.hero-mark\s+\.internal-link\s*\{[^}]*display:\s*none/,
+    "hero-mark 内的锚点链接图标必须隐藏，否则破坏居中",
+  )
+})
+
 test("project rules require desktop, iPad, and mobile acceptance", () => {
   const rules = fs.readFileSync("AGENTS.md", "utf8")
 
