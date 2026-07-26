@@ -6,12 +6,12 @@ DhammaAI 是 Dhammadassī（法观）的个人博客与数字花园，记录佛�
 
 ## 文档映射与三层互通
 
-| 文档                                     | 职责                                    |
-| ---------------------------------------- | --------------------------------------- |
-| [AGENTS.md](./AGENTS.md)                 | **工程与三端验收 SSOT** + 会话开闭门禁  |
-| [PROJECT.md](./PROJECT.md)               | 软链 → 项目中控 `AGENT.md`（状态/边界） |
-| `./scripts/project-closeout`             | 收尾：校验软链、刷新中控基线、更新记忆  |
-| Obsidian `1_Projects/Active/DhammaAI.md` | 软链 → 同一中控（**无需再拷贝**）       |
+| 文档                              | 职责                                   |
+| --------------------------------- | -------------------------------------- |
+| [AGENTS.md](./AGENTS.md)          | **工程与三端验收 SSOT** + 会话开闭门禁 |
+| [PROJECT.md](./PROJECT.md)        | 仓内真文件指针 → 项目中控 `AGENT.md`   |
+| `./scripts/project-closeout`      | 收尾：转发中控、刷新基线、更新记忆     |
+| Obsidian `1_Projects/DhammaAI.md` | 软链 → 同一中控（**无需再拷贝**）      |
 
 完成可交付工作后：
 
