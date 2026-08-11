@@ -10,8 +10,8 @@ DhammaAI 是基于 Quartz v5 的个人博客与数字花园，发布于 `guanzha
 - 页面结构与插件布局以 `quartz.config.yaml` 为准。
 - 视觉 token、版心与响应式规则以 `quartz/styles/custom.scss` 为准。
 - 可执行回归约束以测试文件为准；文档不复制实现细节。
-- **项目中控**（定位、边界、状态）在 `PROJECT.md`（真文件，仓内指针，可进 CI；指向 `obsidian-projects/DhammaAI/AGENT.md`；Obsidian `1_Projects/DhammaAI.md` 软链到同一文件）。中控可摘要本文件，但不得另立一套冲突的布局规则。
-- 系统层混合项目协议见 Vault `1_Projects/AGENT.md`「混合项目三层互通」。
+- **项目中控**（定位、边界、状态）在 `PROJECT.md`（真文件，仓内指针，可进 CI；指向 `obsidian-projects/DhammaAI/AGENTS.md`；Obsidian `1_Projects/DhammaAI.md` 软链到同一文件）。中控可摘要本文件，但不得另立一套冲突的布局规则。
+- 系统层混合项目协议见 Vault `1_Projects/AGENTS.md`「混合项目三层互通」。
 
 ## 会话开闭（与中控 / Obsidian / 记忆互通）
 
