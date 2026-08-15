@@ -7,19 +7,21 @@ description: ""
 draft: false
 publishDate: "2026-08-15"
 ---
+
 你是看到了我们的术语构建的这个术语新建的这个项目，它是脚本存在问题吗？而且当前你已经全部修复了吗？我们是没有这些版本译本，你才去填写的其他的吗？
+
 # 验收测试文章
 
 本文档用于 Social Studio 渲染管线重构的验收测试，覆盖所有支持的内容类型。
 
 ## 正文类型
 
-这是普通段落。**这是加粗文本**。*这是斜体文本*。~~这是删除线~~。==这是高亮==。
+这是普通段落。**这是加粗文本**。_这是斜体文本_。~~这是删除线~~。==这是高亮==。
 
 这是包含 `行内代码` 的段落。这是 [链接](https://example.com)。
 
 ## 列表
-	
+
 ### 无序列表
 
 - 无序列表项 1
@@ -43,10 +45,10 @@ publishDate: "2026-08-15"
 
 ## 表格
 
-| 列1 | 列2 | 列3 |
-|-----|:---:|----:|
-| A   | B   | C   |
-| 左对齐 | 居中 | 右对齐 |
+| 列1        |    列2     |        列3 |
+| ---------- | :--------: | ---------: |
+| A          |     B      |          C |
+| 左对齐     |    居中    |     右对齐 |
 | 长文本测试 | 长文本测试 | 长文本测试 |
 
 ## 代码块
@@ -63,7 +65,7 @@ def hello_world():
 class Greeter:
     def __init__(self, name):
         self.name = name
-    
+
     def greet(self):
         return f"Hello, {self.name}!"
 ```
@@ -72,11 +74,11 @@ class Greeter:
 
 ```javascript
 async function fetchData(url) {
-  const response = await fetch(url);
+  const response = await fetch(url)
   if (!response.ok) {
-    throw new Error(`HTTP error: ${response.status}`);
+    throw new Error(`HTTP error: ${response.status}`)
   }
-  return response.json();
+  return response.json()
 }
 ```
 
@@ -155,13 +157,19 @@ sequenceDiagram
 ### 仪表盘卡片
 
 ```html
-<div style="display: flex; gap: 16px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
-  <div style="flex: 1; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 8px; backdrop-filter: blur(10px);">
+<div
+  style="display: flex; gap: 16px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;"
+>
+  <div
+    style="flex: 1; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 8px; backdrop-filter: blur(10px);"
+  >
     <div style="font-size: 12px; opacity: 0.8;">总用户数</div>
     <div style="font-size: 28px; font-weight: bold;">12,345</div>
     <div style="font-size: 11px; color: #4ade80;">↑ 12.5%</div>
   </div>
-  <div style="flex: 1; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 8px; backdrop-filter: blur(10px);">
+  <div
+    style="flex: 1; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 8px; backdrop-filter: blur(10px);"
+  >
     <div style="font-size: 12px; opacity: 0.8;">活跃用户</div>
     <div style="font-size: 28px; font-weight: bold;">3,456</div>
     <div style="font-size: 11px; color: #f87171;">↓ 3.2%</div>
@@ -175,7 +183,11 @@ sequenceDiagram
 <div style="padding: 16px; background: #f8f9fa; border-radius: 8px;">
   <div style="margin-bottom: 8px; font-weight: 600;">项目进度</div>
   <div style="background: #e9ecef; border-radius: 4px; overflow: hidden; height: 24px;">
-    <div style="width: 75%; background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">75%</div>
+    <div
+      style="width: 75%; background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;"
+    >
+      75%
+    </div>
   </div>
 </div>
 ```
@@ -204,7 +216,7 @@ sequenceDiagram
 ## 引用
 
 > 这是一段引用文本。
-> 
+>
 > 引用可以包含多行。
 
 ## 分隔线
@@ -231,9 +243,22 @@ sequenceDiagram
 
 ```html
 <style>
-.css-var-demo { border: 2px solid #ff6b6b; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fff5f5; }
-.css-var-demo h4 { color: var(--custom-color); margin: 0 0 8px 0; }
-.css-var-demo p { color: var(--text-color); margin: 0; font-size: 14px; }
+  .css-var-demo {
+    border: 2px solid #ff6b6b;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    background: #fff5f5;
+  }
+  .css-var-demo h4 {
+    color: var(--custom-color);
+    margin: 0 0 8px 0;
+  }
+  .css-var-demo p {
+    color: var(--text-color);
+    margin: 0;
+    font-size: 14px;
+  }
 </style>
 <div style="--custom-color: #ff6b6b; --text-color: #333;">
   <div class="css-var-demo">
@@ -249,7 +274,16 @@ sequenceDiagram
 
 ```html
 <style>
-.pseudo-demo { border: 2px solid #448aff; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0f6fc; text-align: center; font-size: 16px; font-weight: 600; }
+  .pseudo-demo {
+    border: 2px solid #448aff;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    background: #f0f6fc;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
 </style>
 <div data-before="→" data-after="←" style="--before-content: '→'; --after-content: '←';">
   <div class="pseudo-demo">伪元素测试：左右应有箭头</div>
@@ -262,13 +296,31 @@ HTML artifact 的 `<style>` 标签在预览时保留，发布时 CSS 内联但 c
 
 ```html
 <style>
-.artifact-card { border: 2px solid #e0e0e0; border-radius: 12px; padding: 20px; margin: 16px 0; background: #fafafa; }
-.artifact-card .title { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 12px; }
-.artifact-card .body { font-size: 14px; color: #666; line-height: 1.6; }
+  .artifact-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px 0;
+    background: #fafafa;
+  }
+  .artifact-card .title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  .artifact-card .body {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+  }
 </style>
 <div class="artifact-card">
   <div class="title">带 style 标签的 artifact</div>
-  <div class="body">这个 artifact 有独立的 &lt;style&gt; 标签。预览时浏览器原生渲染，发布时 juice 内联到元素 style 属性。</div>
+  <div class="body">
+    这个 artifact 有独立的 &lt;style&gt; 标签。预览时浏览器原生渲染，发布时 juice 内联到元素 style
+    属性。
+  </div>
 </div>
 ```
 
