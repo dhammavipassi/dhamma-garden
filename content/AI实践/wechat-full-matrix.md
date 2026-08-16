@@ -17,9 +17,9 @@ publishDate: "2026-08-16"
 ```javascript
 function greet(name) {
   // 期望：Mac 圆点 + 行号 + 语法高亮（inline style）
-  return `Hello, ${name}`;
+  return `Hello, ${name}`
 }
-console.log(greet("微信"));
+console.log(greet("微信"))
 ```
 
 ```python
@@ -65,13 +65,13 @@ sequenceDiagram
 - [x] 任务已完成
 - [ ] 任务未完成
 
-这是 ==高亮文本== 与 **加粗**、*斜体*。
+这是 ==高亮文本== 与 **加粗**、_斜体_。
 
 ## E. 表格
 
-| 维度 | 期望 |
-|------|------|
-| 对齐 | 正常 |
+| 维度 | 期望     |
+| ---- | -------- |
+| 对齐 | 正常     |
 | 边框 | 微信可读 |
 
 ## F. 图片与标题

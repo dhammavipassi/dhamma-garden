@@ -22,87 +22,253 @@ publishDate: "2026-08-16"
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<style>
-:root {
-  --bg:#1a1a2e; --card:#16213e; --accent:#0f3460; --text:#e0e0e0;
-  --highlight:#e94560; --success:#00b894; --warn:#fdcb6e;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--bg); color:var(--text); font-family:-apple-system,sans-serif; padding:20px; }
-.dashboard { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
-.stat-card { background:var(--card); border-radius:12px; padding:20px; border-left:4px solid var(--highlight); }
-.stat-card.success { border-left-color:var(--success); }
-.stat-card.warn { border-left-color:var(--warn); }
-.stat-value { font-size:32px; font-weight:700; margin:8px 0; }
-.stat-label { font-size:12px; opacity:0.7; text-transform:uppercase; letter-spacing:1px; }
-.progress-bar { height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; margin-top:12px; }
-.progress-fill { height:100%; background:var(--highlight); border-radius:3px; transition:width 1s ease; }
-.progress-fill.success { background:var(--success); }
-.chart-container { background:var(--card); border-radius:12px; padding:24px; margin-bottom:20px; }
-.chart-title { font-size:18px; font-weight:600; margin-bottom:16px; }
-.bar-chart { display:flex; align-items:flex-end; gap:8px; height:120px; padding-top:20px; }
-.bar { flex:1; background:var(--accent); border-radius:4px 4px 0 0; position:relative; transition:height 0.5s; }
-.bar:hover { background:var(--highlight); }
-.bar-label { position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); font-size:11px; opacity:0.6; }
-.bar-value { position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:11px; font-weight:600; }
-table { width:100%; border-collapse:collapse; margin-top:16px; }
-th { text-align:left; padding:12px; background:var(--accent); border-radius:4px; font-size:13px; }
-td { padding:12px; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
-.badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:11px; font-weight:600; }
-.badge.active { background:rgba(0,184,148,0.2); color:var(--success); }
-.badge.pending { background:rgba(253,203,110,0.2); color:var(--warn); }
-.badge.failed { background:rgba(233,69,96,0.2); color:var(--highlight); }
-@media (max-width:600px) {
-  .dashboard { grid-template-columns:1fr; }
-}
-</style>
-</head>
-<body>
-<div class="dashboard">
-  <div class="stat-card">
-    <div class="stat-label">总任务</div>
-    <div class="stat-value">128</div>
-    <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
-  </div>
-  <div class="stat-card success">
-    <div class="stat-label">已完成</div>
-    <div class="stat-value">96</div>
-    <div class="progress-bar"><div class="progress-fill success" style="width:75%"></div></div>
-  </div>
-  <div class="stat-card warn">
-    <div class="stat-label">进行中</div>
-    <div class="stat-value">32</div>
-    <div class="progress-bar"><div class="progress-fill" style="width:25%; background:var(--warn)"></div></div>
-  </div>
-</div>
-<div class="chart-container">
-  <div class="chart-title">周度任务完成趋势</div>
-  <div class="bar-chart">
-    <div class="bar" style="height:60%"><span class="bar-value">12</span><span class="bar-label">周一</span></div>
-    <div class="bar" style="height:80%"><span class="bar-value">16</span><span class="bar-label">周二</span></div>
-    <div class="bar" style="height:45%"><span class="bar-value">9</span><span class="bar-label">周三</span></div>
-    <div class="bar" style="height:90%"><span class="bar-value">18</span><span class="bar-label">周四</span></div>
-    <div class="bar" style="height:70%"><span class="bar-value">14</span><span class="bar-label">周五</span></div>
-    <div class="bar" style="height:30%"><span class="bar-value">6</span><span class="bar-label">周六</span></div>
-    <div class="bar" style="height:20%"><span class="bar-value">4</span><span class="bar-label">周日</span></div>
-  </div>
-</div>
-<div class="chart-container">
-  <div class="chart-title">任务状态明细</div>
-  <table>
-    <thead><tr><th>任务名</th><th>状态</th><th>优先级</th><th>完成率</th></tr></thead>
-    <tbody>
-      <tr><td>渲染管线重构</td><td><span class="badge active">进行中</span></td><td>高</td><td>75%</td></tr>
-      <tr><td>Mermaid 修复</td><td><span class="badge active">已完成</span></td><td>高</td><td>100%</td></tr>
-      <tr><td>数学公式修复</td><td><span class="badge active">已完成</span></td><td>中</td><td>100%</td></tr>
-      <tr><td>HTML 仪表盘</td><td><span class="badge pending">待验证</span></td><td>中</td><td>50%</td></tr>
-      <tr><td>性能优化</td><td><span class="badge failed">阻塞</span></td><td>低</td><td>0%</td></tr>
-    </tbody>
-  </table>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      :root {
+        --bg: #1a1a2e;
+        --card: #16213e;
+        --accent: #0f3460;
+        --text: #e0e0e0;
+        --highlight: #e94560;
+        --success: #00b894;
+        --warn: #fdcb6e;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, sans-serif;
+        padding: 20px;
+      }
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .stat-card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 20px;
+        border-left: 4px solid var(--highlight);
+      }
+      .stat-card.success {
+        border-left-color: var(--success);
+      }
+      .stat-card.warn {
+        border-left-color: var(--warn);
+      }
+      .stat-value {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 8px 0;
+      }
+      .stat-label {
+        font-size: 12px;
+        opacity: 0.7;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .progress-bar {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 12px;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--highlight);
+        border-radius: 3px;
+        transition: width 1s ease;
+      }
+      .progress-fill.success {
+        background: var(--success);
+      }
+      .chart-container {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+      .chart-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .bar-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 120px;
+        padding-top: 20px;
+      }
+      .bar {
+        flex: 1;
+        background: var(--accent);
+        border-radius: 4px 4px 0 0;
+        position: relative;
+        transition: height 0.5s;
+      }
+      .bar:hover {
+        background: var(--highlight);
+      }
+      .bar-label {
+        position: absolute;
+        bottom: -24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        opacity: 0.6;
+      }
+      .bar-value {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        font-weight: 600;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      th {
+        text-align: left;
+        padding: 12px;
+        background: var(--accent);
+        border-radius: 4px;
+        font-size: 13px;
+      }
+      td {
+        padding: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 13px;
+      }
+      .badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .badge.active {
+        background: rgba(0, 184, 148, 0.2);
+        color: var(--success);
+      }
+      .badge.pending {
+        background: rgba(253, 203, 110, 0.2);
+        color: var(--warn);
+      }
+      .badge.failed {
+        background: rgba(233, 69, 96, 0.2);
+        color: var(--highlight);
+      }
+      @media (max-width: 600px) {
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <div class="stat-card">
+        <div class="stat-label">总任务</div>
+        <div class="stat-value">128</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">已完成</div>
+        <div class="stat-value">96</div>
+        <div class="progress-bar"><div class="progress-fill success" style="width:75%"></div></div>
+      </div>
+      <div class="stat-card warn">
+        <div class="stat-label">进行中</div>
+        <div class="stat-value">32</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:25%; background:var(--warn)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-title">周度任务完成趋势</div>
+      <div class="bar-chart">
+        <div class="bar" style="height:60%">
+          <span class="bar-value">12</span><span class="bar-label">周一</span>
+        </div>
+        <div class="bar" style="height:80%">
+          <span class="bar-value">16</span><span class="bar-label">周二</span>
+        </div>
+        <div class="bar" style="height:45%">
+          <span class="bar-value">9</span><span class="bar-label">周三</span>
+        </div>
+        <div class="bar" style="height:90%">
+          <span class="bar-value">18</span><span class="bar-label">周四</span>
+        </div>
+        <div class="bar" style="height:70%">
+          <span class="bar-value">14</span><span class="bar-label">周五</span>
+        </div>
+        <div class="bar" style="height:30%">
+          <span class="bar-value">6</span><span class="bar-label">周六</span>
+        </div>
+        <div class="bar" style="height:20%">
+          <span class="bar-value">4</span><span class="bar-label">周日</span>
+        </div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-title">任务状态明细</div>
+      <table>
+        <thead>
+          <tr>
+            <th>任务名</th>
+            <th>状态</th>
+            <th>优先级</th>
+            <th>完成率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>渲染管线重构</td>
+            <td><span class="badge active">进行中</span></td>
+            <td>高</td>
+            <td>75%</td>
+          </tr>
+          <tr>
+            <td>Mermaid 修复</td>
+            <td><span class="badge active">已完成</span></td>
+            <td>高</td>
+            <td>100%</td>
+          </tr>
+          <tr>
+            <td>数学公式修复</td>
+            <td><span class="badge active">已完成</span></td>
+            <td>中</td>
+            <td>100%</td>
+          </tr>
+          <tr>
+            <td>HTML 仪表盘</td>
+            <td><span class="badge pending">待验证</span></td>
+            <td>中</td>
+            <td>50%</td>
+          </tr>
+          <tr>
+            <td>性能优化</td>
+            <td><span class="badge failed">阻塞</span></td>
+            <td>低</td>
+            <td>0%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>
 ```
 
@@ -217,6 +383,7 @@ $$\mathbf{A} = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{
 ## E. 嵌套结构
 
 > [!note] 外层 Callout
+>
 > > [!warning] 内层 Callout
 > > 嵌套内容测试
 
@@ -247,12 +414,12 @@ print(fibonacci(10))
 
 ## G. 表格
 
-| 模块 | 状态 | 测试数 | 通过率 |
-|------|------|--------|--------|
-| 渲染管线 | ✅ | 45 | 100% |
-| Mermaid | ✅ | 12 | 100% |
-| 数学公式 | ✅ | 8 | 100% |
-| HTML 后处理 | ✅ | 15 | 100% |
-| 发布流程 | ⏳ | 20 | 85% |
+| 模块        | 状态 | 测试数 | 通过率 |
+| ----------- | ---- | ------ | ------ |
+| 渲染管线    | ✅   | 45     | 100%   |
+| Mermaid     | ✅   | 12     | 100%   |
+| 数学公式    | ✅   | 8      | 100%   |
+| HTML 后处理 | ✅   | 15     | 100%   |
+| 发布流程    | ⏳   | 20     | 85%    |
 
 <!-- SS-ACCEPT-STRESS-END -->
