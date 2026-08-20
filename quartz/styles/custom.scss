@@ -203,6 +203,35 @@ article em {
   font-weight: inherit;
 }
 
+article mark.ss-highlight {
+  color: inherit;
+  background-color: color-mix(in srgb, var(--暖金) 28%, transparent);
+  padding: 0 0.12em;
+  border-radius: 2px;
+}
+
+article .ss-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+}
+
+article .ss-wavy {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+}
+
+article ruby.ss-ruby {
+  ruby-position: over;
+}
+
+article ruby.ss-ruby rt {
+  color: var(--gray);
+  font-size: 0.6em;
+}
+
 // --- 链接与焦点 ---
 
 a {
