@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 工程仓收尾入口（真文件，非外链软链，保证 CI 可检出）。
-# 本机：转发到 obsidian-projects 中控完整脚本。
+# 本机：转发到 中控完整脚本。
 # CI / 无中控目录：仅做仓库内轻量检查，exit 0。
 
 set -euo pipefail
