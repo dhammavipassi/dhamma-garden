@@ -4,7 +4,7 @@
 
 完整中控（状态 / 边界 / 三层互通协议）在：
 
-`~/Github_projects/obsidian-projects/DhammaAI/AGENT.md`
+`~/Github_projects/DhammaAI/AGENTS.md`
 
 Obsidian 入口（软链到同一中控）：
 
