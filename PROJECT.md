@@ -1,16 +1,12 @@
-# 项目中控入口
+本文件是**工程仓内的项目中控指针**。
 
-本文件是**工程仓内的中控指针**（真文件，非外链软链，保证 CI 可检出）。
+完整项目中控与工程验收 SSOT 位于：
 
-完整中控（状态 / 边界 / 三层互通协议）在：
+`~/Github_projects/dhamma-garden/AGENTS.md`
 
-`~/Github_projects/DhammaAI/AGENTS.md`
-
-Obsidian 入口（软链到同一中控）：
+Obsidian 入口：
 
 `~/Obsidian/1_Projects/DhammaAI.md`
-
-工程验收 SSOT 仍是本仓 [AGENTS.md](./AGENTS.md)。
 
 ## 收尾
 
