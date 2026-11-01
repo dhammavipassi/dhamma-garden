@@ -11,7 +11,8 @@ test("PROJECT.md is a committed control-plane pointer in the repo", () => {
   // 真文件，禁止依赖仓库外软链（CI 无 obsidian-projects）
   assert.equal(fs.lstatSync(file).isSymbolicLink(), false)
   const body = fs.readFileSync(file, "utf8")
-  assert.match(body, /DhammaAI\/AGENT\.md/)
+  assert.match(body, /dhamma-garden\/AGENTS\.md/)
+  assert.match(body, /Obsidian\/1_Projects\/DhammaAI\.md/)
   assert.match(body, /project-closeout/)
 })
 

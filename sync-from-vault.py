@@ -31,7 +31,7 @@ QUARTZ_ROOT = Path("/Users/dhammavipassi/Github_projects/dhamma-garden")
 CONTENT_DIR = QUARTZ_ROOT / "content"
 PRESERVE_FILES = {"index.md"}  # Don't touch these in content/
 # 站点结构页：不在 vault 里，直接在 repo 里维护，同步时不清理
-PRESERVE_DIRS = {"佛法修学", "AI实践", "关于"}
+PRESERVE_DIRS = {"AI实践", "关于"}
 
 # 发布时从 frontmatter 中清除的内部字段（读者不需要看到的管理元数据）
 STRIP_FRONTMATTER_FIELDS = {

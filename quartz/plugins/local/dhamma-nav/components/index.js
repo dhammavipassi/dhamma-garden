@@ -29,15 +29,6 @@ function DhammaNav(props) {
 
   const navItems = [
     {
-      slug: "佛法修学/index",
-      label: "佛法修学",
-      match: "佛法修学",
-      icon: [
-        h("path", { d: "M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z" }),
-        h("path", { d: "M12 6v8" }),
-      ],
-    },
-    {
       slug: "ai实践/index",
       label: "AI 实践",
       match: "AI实践",

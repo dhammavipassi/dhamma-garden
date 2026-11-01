@@ -32,7 +32,6 @@ const VIEWPORTS = [
 const PAGES = [
   { name: "home", path: "/" },
   { name: "about", path: "/关于/" },
-  { name: "dhamma", path: "/佛法修学/" },
   { name: "ai", path: "/ai实践/" },
   // 根级笔记的相对资源路径按 /_probe.html 计算，不能走 cleanUrls 的 /_probe/
   { name: "probe", path: "/_probe.html", optional: true },

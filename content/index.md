@@ -1,16 +1,14 @@
 ---
 title: DhammaAI
-description: 以法为道，以器载智，以观为术
+description: 探索如何让 AI 介入到生命的各个领域，分享实践过程中的心法、技巧、体验和作品。
 ---
 
 <div class="hero">
 
 <h1 class="hero-mark">Dhamma<span class="hero-mark-ai">AI</span></h1>
 
-<p class="hero-subtitle">Dhammadassī · 见法者</p>
-
 <p class="hero-tagline">
-以法为道，以器载智，以观为术
+如实观照
 </p>
 
 </div>
@@ -18,15 +16,6 @@ description: 以法为道，以器载智，以观为术
 <hr class="home-divider" />
 
 <div class="entry-cards">
-
-<a href="./佛法修学/" class="entry-card entry-card--dhamma">
-<svg class="entry-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-<path d="M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z" />
-<path d="M12 6v8" />
-</svg>
-<p class="entry-card-title">佛法修学</p>
-<p class="entry-card-desc">教理闻思 · 禅修实践</p>
-</a>
 
 <a href="./AI实践/" class="entry-card entry-card--ai">
 <svg class="entry-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -44,9 +33,9 @@ description: 以法为道，以器载智，以观为术
 <path d="M12 16v-4M12 8h.01" />
 </svg>
 <p class="entry-card-title">关于</p>
-<p class="entry-card-desc">写作者 · 修行者</p>
+<p class="entry-card-desc">写作者</p>
 </a>
 
 </div>
 
-<p class="home-footer">以法为道 · 以器载智 · 以观为术</p>
+<p class="home-footer">如实观照 · Seeing things as they are.</p>

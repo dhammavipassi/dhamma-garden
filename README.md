@@ -1,6 +1,6 @@
 # DhammaAI
 
-DhammaAI 是 Dhammadassī（法观）的个人博客与数字花园，记录佛法修学、禅修实践、法义辨析，以及 AI 如何辅助学习和系统构建。
+DhammaAI 是 Rowan 的个人博客与数字花园，记录 AI 如何介入写作、系统、身体和日常。
 
 站点基于 [Quartz v5](https://quartz.jzhao.xyz/) 构建，发布于 [guanzhang.dhammaai.com](https://guanzhang.dhammaai.com/)。
 
