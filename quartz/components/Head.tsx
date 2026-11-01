@@ -127,7 +127,7 @@ export default (() => {
                 url: url.toString(),
                 description,
                 inLanguage: cfg.locale,
-                author: { "@type": "Person", name: "Dhammadassī", alternateName: "见法者" },
+                author: { "@type": "Person", name: "Rowan" },
               }),
             }}
           />
